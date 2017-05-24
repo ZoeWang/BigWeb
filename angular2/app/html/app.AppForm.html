@@ -1,0 +1,20 @@
+<div class="w-form">
+  <h2 class="h2">你准备好成为年薪20万的 WEB大前端了吗？</h2>
+  <p class="sub-h2">留下电话，我们会马上联系你，为你预约优惠名额</p>
+  <form #f="ngForm" >
+    <ul class="form-box" id="form">
+      <li class="clearfix">
+        <input type="text" name="" id="username" placeholder="你的姓名" ngControl="user">
+        <span class="err"></span>
+      </li>
+      <li  class="clearfix">
+        <input type="text" name="" id="tel" placeholder="你的电话" ngControl="phone">
+        <span class="err"></span>
+      </li>
+      <li class="clearfix">
+        <a href="javascript:;" class="btn-red numClick" id="btnSub" on-click="subMsg()">马上抢占名额 ></a>
+        <span class="count">已有<i id="num">416</i>人预约</span>
+      </li>
+    </ul>
+  </form>
+</div>

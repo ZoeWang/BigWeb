@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>模版模式</title>
+</head>
+<body>
+<script type="text/javascript">
+
+    // 1.泡一杯咖啡
+    var Coffee = function(){};
+
+    Coffee.prototype.boilWater = function(){
+        console.log('把水煮沸');
+    }
+    Coffee.prototype.brewCoffee = function(){
+        console.log('冲泡咖啡');
+    }
+    Coffee.prototype.pourInCup = function(){
+        console.log('把咖啡倒入杯子');
+    }
+    Coffee.prototype.addSomething = function(){
+        console.log('加糖和牛奶');
+    }
+
+    Coffee.prototype.init = function(){
+        this.boilWater();
+        this.brewCoffee();
+        this.pourInCup();
+        this.addSomething();
+    }
+
+    var coffee = new Coffee();
+    coffee.init();
+
+    // 2.泡一杯茶
+    var Tea = function(){};
+
+    Tea.prototype.boilWater = function(){
+        console.log('把水煮沸');
+    }
+    Tea.prototype.brewTea = function(){
+        console.log('冲泡茶叶');
+    }
+    Tea.prototype.pourInCup = function(){
+        console.log('把茶倒入杯子');
+    }
+    Tea.prototype.addSomething = function(){
+        console.log('加柠檬');
+    }
+
+    Tea.prototype.init = function(){
+        this.boilWater();
+        this.brewTea();
+        this.pourInCup();
+        this.addSomething();
+    }
+
+    var tea = new Tea();
+    tea.init();  
+
+
+    // 3.模版方法
+
+    var Drunk = function(){};
+
+    Drunk.prototype.boil = function(){
+        console.log('把水煮沸');
+    }
+    Drunk.prototype.brew = function(){
+        throw new Error('子类必须重写brew方法');
+    }
+    Drunk.prototype.pour = function(){
+        throw new Error('子类必须重写pour方法');
+    }
+    Drunk.prototype.add = function(){
+        throw new Error('子类必须重写add方法');
+    }
+
+    Drunk.prototype.init = function(){
+        this.boil();
+        this.brew();
+        this.pour();
+        this.add();
+    }                                                    
+
+    var Coffee = function(){};
+    Coffee.prototype = new Drunk();
+
+    Coffee.prototype.brew = function(){
+        console.log('用沸水冲泡咖啡');
+    }
+    Coffee.prototype.pour = function(){
+        console.log('把咖啡倒入杯子');
+    }
+    Coffee.prototype.add = function(){
+        console.log('加糖和牛奶');
+    }
+
+    var coffee = new Coffee();
+    coffee.init();
+
+    var Tea= function(){};
+    Tea.prototype = new Drunk();
+
+    Tea.prototype.brew = function(){
+        console.log('用沸水冲泡茶叶');
+    }
+    Tea.prototype.pour = function(){
+        console.log('把茶倒入杯子');
+    }
+    Tea.prototype.add = function(){
+        console.log('加柠檬');
+    }
+
+    var tea = new Tea();
+    tea.init();
+
+
+</script>
+</body>
+</html>

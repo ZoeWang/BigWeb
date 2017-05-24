@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>职责链模式</title>
+</head>
+<body>
+<script type="text/javascript">
+    
+    // 一般般写法
+    var order = function(orderType,pay,stock){
+        if(orderType == 1 ){
+            if( pay === true ){
+                console.log('500元定金预购，得到100元优惠券');
+            }else{
+                if( stock > 0 ){
+                    console.log('普通用户购买，无优惠券');
+                }else{
+                    console.log('手机库存不足');
+                }
+            }
+        }
+        else if(orderType == 2 ){
+            if( pay === true ){
+                console.log('200元定金预购，得到50元优惠券');
+            }else{
+                if( stock > 0 ){
+                    console.log('普通用户购买，无优惠券');
+                }else{
+                    console.log('手机库存不足');
+                }
+            }
+        }
+        else if(orderType == 3 ){
+            if( stock > 0 ){
+                console.log('普通用户购买，无优惠券');
+            }else{
+                console.log('手机库存不足');
+            }
+        }
+    }
+
+    order(1,true,500);
+    order(1,false,500);
+    order(2,true,500);
+    order(3,true,500);
+    order(3,true,0);
+
+
+    // 2.职责链模式
+    var order500 = function(orderType,pay,stock){
+        if(orderType===1 && pay==true){
+            console.log('500元定金预购，得100元优惠券');
+        }else{
+            order200(orderType,pay,stock);
+        }
+    }
+
+    var order200 = function(orderType,pay,stock){
+        if(orderType===2 && pay==true){
+            console.log('200元定金预购，得50元优惠券');
+        }else{
+            orderNormal(orderType,pay,stock);
+        }
+    }
+
+    var orderNormal = function(orderType,pay,stock){
+        if(stock>0){
+            console.log('普通用户购买，没有优惠');
+        }else{
+            console.log('手机存库不足');
+        }
+    }
+
+    order500(1,true,500);
+    order500(1,false,500);
+    order500(2,true,500);
+    order500(3,true,500);
+    order500(3,true,0);
+
+</script>
+</body>
+</html>

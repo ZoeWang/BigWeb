@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" >
+    <title>享元模式</title>
+</head>
+<body>
+<script type="text/javascript">
+
+    //汽车登记示例
+    // var Car =function(make,model,year,owner,tag,renewDate){
+    //    this.make=make;
+    //    this.model=model;
+    //    this.year=year;
+    //    this.owner=owner;
+    //    this.tag=tag;
+    //    this.renewDate=renewDate;
+    // }
+    // Car.prototype = {
+    //    getMake:function(){
+    //        returnthis.make;
+    //    },
+    //    getModel:function(){
+    //        returnthis.model;
+    //    },
+    //    getYear:function(){
+    //        returnthis.year;
+    //    },
+    //    transferOwner:function(owner,tag,renewDate){
+    //        this.owner=owner;
+    //        this.tag=tag;
+    //        this.renewDate=renewDate;
+    //    },
+    //    renewRegistration:function(renewDate){
+    //        this.renewDate=renewDate;
+    //    }
+
+    //数据量小到没多大的影响，数据量大的时候对计算机内存会产生压力，下面介绍享元模式优化后
+    
+    //包含核心数据的Car类
+    var Car=function(make,model,year){
+       this.make=make;
+       this.model=model;
+       this.year=year;
+    }
+    Car.prototype={
+       getMake:function(){
+           returnthis.make;
+       },
+       getModel:function(){
+           returnthis.model;
+       },
+       getYear:function(){
+           returnthis.year;
+       }
+    }
+    //中间对象，用来实例化Car类
+    var CarFactory=(function(){
+       var createdCars = {};
+
+       return {
+           createCar:function(make,model,year){
+               var car=createdCars[make+"-"+model+"-"+year];
+               console.log(createdCars)
+               return car ? car : createdCars[make +'-'+ model +'-'+ year] =(new Car(make,model,year));
+
+           }
+       }
+    })();
+    //数据工厂，用来处理Car的实例化和整合附加数据
+    var CarRecordManager = (function() {
+       var carRecordDatabase = {};
+       return {
+           addCarRecord:function(make,model,year,owner,tag,renewDate){
+               var car = CarFactory.createCar(make, model, year);
+               carRecordDatabase[tag]={
+                   owner:owner,
+                   tag:tag,
+                   renewDate:renewDate,
+                   car:car
+               }
+           },
+           transferOwnership:function(tag, newOwner, newTag, newRenewDate){
+               var record=carRecordDatabase[tag];
+               record.owner = newOwner;
+               record.tag = newTag;
+               record.renewDate = newRenewDate;
+           },
+           renewRegistration:function(tag,newRenewDate){
+               carRecordDatabase[tag].renewDate=newRenewDate;
+           },
+           getCarInfo:function(tag){
+               return carRecordDatabase[tag];
+           }
+       }
+    })();
+
+    CarRecordManager.addCarRecord("奔驰","car","2016","曹江涛","888","2016-2018");
+    CarRecordManager.addCarRecord("奔驰","car","2015","范明非","19888","2016-2019");
+    CarRecordManager.addCarRecord("奔驰","car","2015","朱华宇","19888","2016-2019");
+
+    console.log(CarRecordManager.getCarInfo("888"))
+    console.log(CarRecordManager.getCarInfo("19888"))
+
+</script>
+</body>
+</html>

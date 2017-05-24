@@ -1,0 +1,17 @@
+<div class="w-ban">
+    <div class="wrap">
+        <p class="infor">{{infor}}</p>
+        <h1 class="h1">{{h1}}</h1>
+        <a id="playA" href="javascript:;" class="play icon-play" on-click="videoA()"></a>
+        <i></i><span class="text">{{text1}}</span>
+        <i></i><span class="text">{{text2}}</span>
+        <a class="btn-red" on-click="alertHaha()">立刻报名<i></i></a>
+    </div>
+    <div class="video-mask" id="vMask">
+        <video id="videoA" class="video-a" controls="controls" preload="autoplay" mediagroup="myVideoGroup" poster="">
+            <source id="mp4" src="http://wirrorcdn.jikexueyuan.com/jiuyewebshow3.0.mp4" type="video/mp4">
+            <p>Your user agent does not support the HTML5 Video element</p>
+        </video>
+        <a href="javascript:;" class="btn-close" id="closeV" on-click="closeVideo()"></a>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" >
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    console.log("haha");
+
+
+    var Web = function(){
+        this.html ='高大上',
+        this.css='高大上',
+        this.js='高大上';
+    }
+
+    var Builder = function(Web){
+        this.web = new Web()
+        this.makehtml = function(){
+            console.log('构建html文件');
+            this.web.html = 'html ok'
+        }
+        this.makecss = function(){
+            console.log('构建css文件');
+            this.web.css = 'css ok'
+        }
+        this.makejs = function(){
+            console.log('构建js文件');
+            this.web.js = 'js ok'
+        }
+        this.getResult = function(){
+            return this.web;
+        }
+    }
+
+    var Director = function(){
+        this.getWeb = function(build){
+            build.makehtml();
+            build.makecss();
+            // build.makejs();
+        }
+    }
+
+    var builder = new Builder(Web);
+    var director = new Director();
+    director.getWeb(builder);
+    var hightWeb = builder.getResult();
+    console.log(hightWeb);
+
+
+</script>
+</body>
+</html>

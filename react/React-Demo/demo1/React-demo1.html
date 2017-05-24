@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>简易评论框</title>
+<style>
+    .reactdemo{
+        background-color:red 
+    }
+</style>
+        <script src="react.js"></script>
+        <script src="react-dom.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
+    </head>
+    <body>
+        <div id="reactDemo"></div>
+        <script type="text/babel">
+            var Content = React.createClass({
+                getInitialState: function () {
+                    return {
+                        inputText: "",
+                        commentList:"",
+                    }
+                },
+                handleChange: function (event){
+                    this.setState({inputText:event.target.value});
+                },
+                handleSubmit: function () {
+                    this.setState({commentList:"reply To: " + this.props.selectName + this.state.inputText});
+                },
+                render:function(){
+                    return <div>
+                    <textarea onChange={this.handleChange} placeholder="请输出您的评论..."></textarea>
+                    <button onClick={this.handleSubmit}>提交</button>
+                    <p>{this.state.commentList}</p>
+                    </div>;
+                },
+            });
+            var Comment = React.createClass({
+                getInitialState: function () {
+                    return {
+                        names: ["xiufang","ciwei","huayu"],
+                        selectName:'',
+                    };
+                },
+                handleSelect: function (event) {
+                    this.setState({
+                        selectName:event.target.value
+                    });
+                },
+                render:function () {
+                    var options = [];
+                    for (var option in this.state.names) {
+                        options.push(<option value={this.state.names[option]}>{this.state.names[option]}</option>)
+                    };
+                    return <div>
+                    <select onChange={this.handleSelect}>
+                        {options}
+                    </select>
+                    <Content selectName={this.state.selectName}/>
+                    </div>;
+                },
+            });
+            ReactDOM.render(
+                <Comment className="reactdemo"/>,document.getElementById('reactDemo')
+            )
+        </script>
+    </body>
+</html>
