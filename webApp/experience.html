@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>移动开发的一些经验总结</title>
+	<style>
+	p{
+		margin-bottom: 15px;
+		line-height: 1.5em;
+	}
+	</style>
+</head>
+<body>
+	<p>1、-webkit-tap-highlight-color:rgba(255,255,255,0) 可以同时屏蔽ios 和 Android 下点击元素时出现的阴影。<br> 备注：transparent 的属性值在Android 下无效 </p>
+	<p>2、-webkit-appearance:none可以同时屏蔽输入框怪异的内阴影。</p>
+	<p>3、-webkit-transform:translate3d(0, 0, 0)在ios下可以让动画更加流畅（这个属性会调用硬件加速模式），但是在android下不可乱用，很多见所未见的bug就是因为这个。</p>
+	<p>4、@-webkit-keyframes可以预定义很多你所想到的动画，然后通过-webkit-transition来调用。<br> 备注：即使不是移动端也可以，兼容IE10+ chrome firefox</p>
+	<p>5、-webkit-background-size可以做高清图标，不过一些低版本的android只能识别background-size，所以有必要两个都要写上；用这个属性的时候推荐使用cover这个值，可以自动去匹配宽和高。<br> 备注：即使不是移动端也可以，兼容IE9+ chrome firefox</p>
+	6、text-shadow多用这个属性，可以美化文字效果。
+	7、border-radius、box-shadow、gradient、border-image，不解释，可以精简代码。
+	8、android、ios4及以下，固定宽/高块级元素的overflow:scroll/auto失效，属于浏览器的bug，可借助第三方工具实现。
+	9、ios5+可以通过scrollTo(0,0)来自动隐藏浏览器地址栏。
+	10、<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">width可是宽度，initial-scale初始化缩放比例，maximum-scale允许用户缩放的最大比例，minimum-scale允许用户缩放的最小比例，user-scalable是否允许用户缩放。
+	11、允许用户添加到主屏幕，并提供webapp的支持。
+	12、css3动画会影响你的自动聚焦，所以自动聚焦要在动画执行之前来做，或者直接舍弃。
+	13、使用media query适配不同屏幕。
+	14、如果涉及较多域外链接，DNS Prefetching可以帮你做DNS预解析。
+	15、如果你希望你的站点更多地在SNS上传播，那么Open Graph Protocol会比较适合你。
+	16、当用iScroll时候，不能使用:focus{outline:0}伪类，否则滑动会卡。
+
+
+	<br>
+	只要在样式里面加一句去掉css去掉iPhone、iPad的默认按钮样式就可以了！~
+
+input[type="button"], input[type="submit"], input[type="reset"] {
+
+-webkit-appearance: none;
+
+}
+
+textarea {  -webkit-appearance: none;}   
+
+如果还有圆角的问题，
+
+.button{ border-radius: 0; } 
+
+ 
+
+我们在写表单的时候会发现一些浏览器对表单赋予了默认的样式，如在Chorme浏览器下，文本框及下拉选择框当载入焦点时，都会出现发光的边框，并且在火狐及谷歌浏览器下，多行文本框textarea还可以自由拖拽拉大，另外还有在IE10下，当文本框输入内容后，在文本框的右侧会出现一个小叉叉，等等。不容置疑，这些效果是在用户体验上得到了提升，但有些时候我们并不需要这些默认的样式，那怎么办呢？下面我们就来分别看一下解决办法。
+
+1、去除Chrome等浏览器文本框默认发光边框
+
+
+
+
+input:focus, textarea:focus {
+    outline: none;
+}
+去掉高光样式：
+
+input:focus{
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+    -webkit-user-modify:read-write-plaintext-only;
+}
+
+当然这样以来，当文本框载入焦点时，所有浏览器下的文本框的边框都不会有颜色上及样式上的变化了，但我们可以重新根据自己的需要设置一下，如：
+
+
+
+
+
+input:focus,textarea:focus {
+    outline: none;
+    border: 1px solid #f60;
+}
+这样的话，当文本框载入焦点时，边框颜色就会变为橙色，给用户一个反馈。
+
+2、去除IE10+浏览器文本框后面的小叉叉
+
+只需下面一句就ok了
+
+
+
+
+input::-ms-clear {
+    display: none;
+}
+3、禁止多行文本框textarea拖拽
+
+这样按下面添加属性多行文本框就不能拖拽放大缩小了：
+
+
+
+
+textarea {
+    resize: none;
+}
+在这里要提到一个属性resize，这个是CSS3属性，用于元素缩放，它可以取以下几个值：
+
+none 默认值
+
+both 允许水平方向及垂直方向缩放
+
+horizontal 只允许水平方向缩放
+
+vertical 只允许垂直方向缩放
+
+不仅可以针对textarea元素，对大多数元素都适用，如div等，在这里不一一列举，但与textarea不同的是，对div使用时需要加上一句overflow: auto;，也就是这样才有效果：
+
+
+
+
+
+div {
+    resize: both;
+    overflow: auto;
+}
+
+</html>

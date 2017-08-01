@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+   <meta name="apple-mobile-web-app-capable" content="yes" /> 
+</head>
+<style type="text/css">
+	html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+    }
+
+    #canvas {
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+	.spirit {
+		position: absolute;
+		width:50px;
+		height: 50px;
+		background-color: red;
+	}
+</style>
+<body>
+<!-- 这里body的height必须是100% 才能占满整个viewport -->
+<div id="canvas"></div>
+
+<!-- 定义touchstart的事件处理函数，并绑定事件 -->
+<script>
+	//define global variable
+	var canvas = document.getElementById('canvas'),
+		spirit, startX, startY;
+
+	//touch start listener
+
+	function touchStart(event) {
+		event.preventDefault();
+		if(spirit ||! event.touches.length) return;
+		var touch = event.touches[0];
+		startX = touch.pageX;
+		startY = touch.pageY;
+		spirit = document.createElement('div');
+		spirit.className = 'spirit';
+		spirit.style.left = startX;
+		spirit.style.top = startY;
+		canvas.appendChild(spirit);
+	}
+
+	//add touch start listener
+	canvas.addEventListener('touchstart', touchStart, false);
+
+</script>
+<!-- <p>
+首先，我们将方块spirit作为一个全局对象，因为我们现在要测试单根手指所以屏幕上最好只有一个物体在移动<br/>
+（等会有多触实例）。在touchStart这个事件处理函数中，我们也首先判断了是否已经产生了spirit，也就是是
+否已经有一个手指放到屏幕上，如果是，直接返回。<br/>
+ 和传统的event listener一样，多触式系统也会产生一个event对象，只不过这个对象要多出一些属性，比如
+这里的event.touches，这个数组对象获得屏幕上所有的touch。注意这里的event.preventDefault()，在传统的
+事件处理函数中，这个方法阻止事件的默认动作，触摸事件的默认动作是滚屏，我们不想屏幕动来动去的，所
+以先调用一下这个函数。我们取第一个touch，将其pageX/Y作为spirit创建时的初始位置。接下来，我们创建
+一个div，并且设置className，left，top三个属性。最后，我们把spirit对象appendChild到容器中。这样，
+当第一根手指放下的时候，一个红色的，50px见方的方块就放到屏幕上了。
+</p> -->
+
+<!-- 手指在屏幕上移动的事件 -->
+<script>	
+function touchMove(event) {
+	event.preventDefault();
+	if (!spirit || !event.touches.length) return;
+	var touch = event.touches[0],
+		x = touch.pageX - startX,
+		y = touch.pageY - startY;
+	spirit.style.webkitTransform = 'translate(' + x + 'px, ' + y + 'px)';
+}
+
+canvas.addEventListener("touchmove", touchMove, false);
+</script>
+
+<!-- 在touch move listener中，我们使用webkit特有的css属性：webkitTransform来移动方块，这个属性具体怎么用请google之。建议构造面向iOS设备的网页的时候尽量使用webkit自己的特性，不但炫，更可以直接利用硬件来提高性能。 -->
+
+<!-- touchend 事件，手指提起的时候方块从屏幕上移除 -->
+<script>
+function touchEnd(event) {
+	if(!spirit) return;
+	canvas.removeChild(spirit);
+	spirit = null;
+}
+
+canvas.addEventListener("touchend",touchEnd, false);
+</script>
+
+<!-- 在你的ipad或者iphone上测试一下以上代码。如果不出意外的话，一个完整的多触式web程序就诞生了。。 
+这种事件处理模式虽然能够满足我们开发多触式网页应用的需求，但是start – move – end的流程有点繁琐，
+能不能封装一些常用的动作让我们用一个event handler就能解决问题呢。没错，Gesture事件就是为了这个目
+的设计出来的，它封装了手指的scale, slide, rotate等常用的动作。不过，下一章我们再来讨论这个问题。。 
+附件是一个更加复杂一些的例子，每根手指放下的时候都会产生一个不同颜色的方块，手指动的时候方块跟着
+动，手指提起的时候方块消失，请下载查看试用。 
+通过附件所包含的实例，我们可以看出一些较为隐蔽的特性。首先，这里我们没有再使用event.touches取所有
+touch的对象，而是使用event.changedTouches这个数组，用来取得所有跟本次事件相关的touch。但是，这
+里我发现一个奇怪的特性，不知道是我的ipad有问题还是本来就是这样，就是在有多根手指放在屏幕上的时候
+，如果提起一根手指，touchend事件的changedTouches中会包含所有手指的touch对象，然后，其他几根留
+在屏幕上的手指会重新触发touchstart，并刷新所有的touch对象（identifier都不一样了）。如果这是一个所有
+设备都有的特性，那么将给编程者带来一些不便，不知道水果为啥要这么处理。  -->
+
+<!-- 多触式 -->
+<p>水果设备中的Gesture，广义的说包括手指点击（click），轻拂（flick），双击（double-click），两只手指的分开、闭合（scale）、转动（rotate）等一切手指能在屏幕上做的事情。iOS上设计了了一系列手势来模拟和扩展鼠标操作，比如手指放下后迅速提起会触发click事件，手指向上滑动，停止，会触发body的onscroll事件等等。但是，狭义的Gesture事件，也就是能够addEventListener的GestureEvent对象，却并不是一个非常强大的存在，它只在有两根或多根手指放在屏幕上的时候触发，并且只包含手指分开比例（scale）和手指转动角度（rotation）信息。对于其他各种常用的手势，我们必须利用别的事件来处理。</p> 
+
+<p>下面从单根手指的事件开始说起。。。 </p>  
+
+<p>我们先来考虑一个最简单的手势，手指放下后迅速提起，这个手势做出来后会发生什么？大家当然会想到click，其实在click发生以前，还有很多事情发生，请看下图：</p>
+     <img src="img/finger.png" alt="">
+<p>这里先解释一下什么是clickable element，就是一个绑定了click, mousedown, mouseup, mousemove事件
+的任何html element（注意，没有绑定事件处理的element不算clickable element）。从这张图可以看出，手
+指提起的一刹那，首先触发的并不是click事件，而是mouseover和mousemove。然后，系统会判断接收到事
+件的element的内容是否被改变，如果内容被改变，接下来的事件都不会触发，如果没有改变，会按照
+mousedown，mouseup，click的顺序触发事件。什么？你问mouseout在哪？这个事件的处理，比较尴尬，
+上面说的一系列事件都完了以后，如果你再点击一个clickable element，就会触发上一个clickable element的
+mouseout事件了。。。比较纠结，建议不要在多触版网页上使用mouseout。 </p>
+
+    <p>那么，如果手指放下后不提起又会发生什么呢？什么都不会发生，没有任何事件会被触发。但是，如果对象
+是一个img并且有alt属性的话，这个动作将会显示img的alt字符串。如果是一个link的话，这个动作会显示“在
+新窗口打开连接”选项，但是，不会有任何用户定义事件触发。 </p>
+
+    <p>最后一种关于单根手指的事件，是放下后滑动手指。注意，在滑动的过程当中，不会触发除touchmove以外
+的任何事件（请不要试图在这时处理mousemove）。手指在滑动的时候，整个page应该会跟着移动，除非你
+preventDefault了body的touchmove。当手指停下来后，page的onscroll将会触发。除此之外，没有什么我
+们熟悉的事情会发生。</p>
+
+
+</body>
+</html>

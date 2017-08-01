@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue js</title>
+</head>
+<body>
+https://segmentfault.com/a/1190000005863691
+	<!--这是我们的View-->
+    <!-- <div id="app">
+        {{ message }}
+    </div> -->
+
+
+    <div id="app1">
+	  <p>{{count}}
+	    <button @click="inc">+</button>
+	    <button @click="dec">-</button>
+	  </p>
+	</div>
+
+
+    <div id="app2">
+	  <p>{{count}}
+	    <button @click="inc">+</button>
+	    <button @click="dec">-</button>
+	  </p>
+	</div>
+
+</body>
+
+<!-- <script src="https://cdn.jsdelivr.net/vue/latest/vue.js"></script> -->
+<script src="https://unpkg.com/vue@2.2.4/dist/vue.min.js"></script>
+<script src="https://unpkg.com/vuex@2.2.1"></script>
+<script>
+	
+	// var exData = {
+	// 	message: 'Hello World!'
+	// }
+
+	// new Vue({
+	// 	el: '#app',
+	// 	data: exData
+	// })
+
+	new Vue({
+		el:'#app1',
+		data: {
+			count: 0
+		},
+
+		methods: {
+			inc () {
+				this.count++
+			},
+			dec () {
+				this.count--
+			}
+		}
+	})
+
+	// Vuex
+	const store = new Vuex.Store({
+	  state: {
+	    count: 0
+	  },
+	  mutations: {
+	      inc: state => state.count++,
+	    dec: state => state.count--
+	  }
+	})
+
+	const app = new Vue({
+	  el: '#app2',
+	  computed: {
+	    count () {
+	        return store.state.count
+	    }
+	  },
+	  methods: {
+	    inc () {
+	      store.commit('inc')
+	    },
+	    dec () {
+	        store.commit('dec')
+	    }
+	  }
+	})
+</script>
+
+
+
+</html>

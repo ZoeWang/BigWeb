@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>字符串翻转</title>
+</head>
+<body>
+	<ul id="kk"></ul>
+
+	<ul class="aa">
+		<li>a</li>
+		<li>b</li>
+		<li>c</li>
+		<li>d</li>
+	</ul>
+
+	<script>
+		// 用js写一个可以实现展示10个li, 2秒之后li反转(倒序显示到页面上)
+		var kk = document.getElementById("kk");
+		// 创建数组
+		var arr = new Array();
+		for(var i=0; i<10; i++){
+			arr[i] = "<li>序号："+i+"</li>";
+		}
+
+		// 创建函数
+		function order(type) {
+			var num;
+			kk.innerHTML = "";
+			for(var j=0; j<arr.length; j++){
+				if(type=="asc") {
+					num = j;
+				}else{
+					num=arr.length-1-j;
+				}
+
+				kk.innerHTML = kk.innerHTML+arr[num];
+			}
+		}
+
+		order("asc");  //顺序
+		setTimeout("order('desc')",2000); //2秒后倒叙
+
+
+		// li 数字倒排
+		var aa = document.getElementsByTagName("ul")[1].innerHTML;
+		document.getElementsByTagName("ul")[1].innerHTML = aa.split("</li>").reverse().join("</li>");
+
+
+
+
+		function reverse(str) 
+		{ 
+		    if(str.length == 0)return null; 
+		    var i = str.length; 
+		    var dstr = ""; 
+		    while(--i >= 0) 
+		    { 	//charAt() 方法可返回指定位置的字符
+		        dstr += str.charAt(i);  
+		    } 
+		    return dstr; 
+		} 
+		var str = "abcdef"; 
+		str = reverse(str); 
+		document.write(str); 
+
+
+		var str="1234567" 
+		var i=str.length; 
+		i=i-1; 
+		for (var x = i; x >=0; x--) 
+		{ 
+		document.write(str.charAt(x)); 
+		}
+
+	</script>
+</body>
+</html>

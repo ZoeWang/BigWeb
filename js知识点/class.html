@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>es6 class</title>
+</head>
+<body>
+
+<script>
+
+	class Point {
+	  constructor(x, y) {
+	    this.x = x;
+	    this.y = y;
+	  }
+
+	  toString() {
+	    return '(' + this.x + ', ' + this.y + ')';
+	  }
+	}
+	var point = new Point(2, 3);
+	继承 super
+	class ColorPoint extends Point {
+	  constructor(x, y, color) {
+	    super(x, y); // 调用父类的constructor(x, y)
+	    this.color = color;
+	  }
+
+	  toString() {
+	    return this.color + ' ' + super.toString(); // 调用父类的toString()
+	  }
+	}
+
+
+
+
+
+	// 每一个使用class方式定义的类默认都有一个constructor函数， 这个函数是构造函数的主函数， 该函数体内部的this指向生成的实例, say() {}为原型上的方法， 我们定义一个简单的类 
+
+	"use strict";
+	class Person {
+		constructor(name) {
+			this.name = name;
+		}
+
+		say () {
+			console.log("say hi");
+		}
+	};
+
+	new Person().say();  //控制台会输出say hi
+
+	// 　注意： ES6中声明的类不存在函数声明提前的问题， 类必须先声明再使用，否则会出现异常 ， 我们只是把上面Demo中的代码位置一改， 立马报错， (如果用ES5中的思维去理解的话， 声明的类没有声明提前， 有关声明提前的知识点， 通过class 类名{} 声明的类，就是var 类名 = function(){})；
+
+
+	// 定义函数的静态方法：
+	// 如果定义函数的时候， 大括号内部， 函数名前声明了static， 那么这个函数就为静态函数， 就为静态方法， 和原型没啥关系
+
+	"use strict";
+	class Person {
+		constructor(name) {
+			this.name = name;
+		}
+
+		static say () {
+			console.log("say static function");
+		}
+	};
+	Person.say();
+
+
+
+	// 定义原型方法：
+	// 定义原型方法，直接这样声明： 函数名 () {} 即可， 小括号内部为参数列表， 大括号内部为代码块,  ES5中要定义原型方法是通过： 构造函数.prototype.原型方法名() {} , 这种书写形式很繁琐， 使用ES6定义原型的方式有点像java和C#了， 这些都是比较高级语言的特征：
+
+	"use strict";
+	class Person {
+		constructor(name) {
+			this.name = name;
+		}
+
+		say () {
+			console.log("say 原型方法");
+		}
+
+		sing () {
+			console.log("lalala 原型方法");
+		}
+	};
+
+	new Person().say();
+	new Person().sing();
+
+
+
+	// 静态属性和原型属性
+	// 只能在类定义完毕以后再定义静态属性
+	"use strict";
+	class Person {
+		constructor(name) {
+			this.name = name;
+		}
+	};
+	Person.hands = 2;
+	console.log(Person.hands);
+
+	// 原型上面也不能定义属性了， 我们只能在原型上定义set和get， 取值和设值器， 要注意取值器和设值器是在原型上....：
+
+	class Person {
+	    constructor(_name) {
+	        this._name = _name;
+	    }
+	    get na() {
+	        return this._na;
+	    }
+	    set na(_na) {
+	        this._na = _na;
+	    }
+	}
+	var p = new Person("zoe");
+	p.na = "heheda";
+	console.log(p.na); 	// heheda
+	console.log(p._name); 	// zoe
+
+
+	// 如果要定义原型属性的话， 直接把属性定义在constructor内部即可， 如果是继承的话， 子类也会继承父类的这个属性：
+
+	class Person {
+		constructor() {
+			this.name = "default";
+		}
+	}
+
+	class Man extends Person {
+		constructor() {
+			super();
+		}
+	}
+	console.log(new Man().name);
+
+
+
+	// 类的继承extends：
+	// ES5已经有继承， 但是这种继承经常绕来绕去的， ES6的继承也只是基于原型继承的封装(语法糖)， 虽然的确简洁了不少， 还是java的继承比较好学啊， 下面Demo的例子中的SMan是超人的意思，别想歪了；
+
+	"use strict";
+	class Person {
+		constructor(name) {
+			this.name = name;
+		}
+		say () {
+			console.log("say hi");
+			return this;
+		}
+	};
+
+	class SMan extends Person {
+		constructor (name, power) {
+			super(name);
+			this.superPower = power;
+		}
+
+		show () {
+			console.log(this.superPower);
+			return this;
+		}
+	};
+	console.log( new SMan("Clark", "pee").show().say().name ); //输出：  pee  say    hi    Clark
+
+	// 如果要使用继承的话， 在子类中必须执行super()调用父类， 否者编译器会抛错，  在子类中的super有三种作用， 第一是作为构造函数直接调用，第二种是作为父类实例， 第三种是在子类中的静态方法中调用父类的静态方法；
+
+
+
+
+
+
+
+
+	// 下面的用于学习，面试基本不会问到
+
+	// ES6继承的和ES5继承的主要区别， ES5中常用的继承是把子类的原型设置为父类的实例， 子类自然就有了父类的所有方法和属性：
+	var Sup = function() {
+	    this.sub = true;
+	};
+	Sup.prototype.protoSup = {sup:"sup"};
+
+	var Sub = function() {
+	    this.sub = true;
+	};
+	Sub.prototype = new Sup(); //继承原型;
+	Sub.prototype.constructor = Sub; //修正constructor;
+
+
+	// 而在ES6中实现的继承更加精巧， 不会有受到父类的干扰， 这种继承是结合了apply继承和原型继承实现的组合继承：
+	var Sup = function() {
+	    this.sub = true;
+	};
+	var Sub = function() {
+	    this.sup = true;
+	    Sup.apply(this); //继承this的属性和方法;
+	};
+	Sub.__proto__ = Sup; //继承Sup静态属性;
+	Sub.prototype = Object.create( Sup.prototype, {constructor : { value: Sub, enumerable: false, writable: true, configurable: true }}); //继承原型属性，并覆写constructor;
+
+	// 用图片可以比较容易看出两者区别， 图示ES5和ES6继承的区别：http://keenwon.com/1524.html ；
+
+
+
+	// ES5模拟ES6的继承：
+	// es6
+	"use strict";
+	class Person {
+	    constructor(name) {
+	        this.name = name;
+	    }
+	    say () {
+	        console.log("say hi");
+	        return this;
+	    }
+	};
+	class SMan extends Person {
+	    constructor (name, power) {
+	        super(name);
+	        this.superPower = power;
+	    }
+	    show () {
+	        console.log(this.superPower);
+	        return this;
+	    }
+	}
+	console.log( new SMan("Clark", "pee").show().say().name );
+
+	// babel 转化es5
+	var _createClass = function () {
+        function defineProperties(target, props) {
+            for (var i = 0; i < props.length; i++) {
+                var descriptor = props[i];
+                descriptor.enumerable = descriptor.enumerable || false;
+                descriptor.configurable = true;
+                if ("value" in descriptor) descriptor.writable = true;
+                Object.defineProperty(target, descriptor.key, descriptor);
+            }
+        }
+
+        return function (Constructor, protoProps, staticProps) {
+            //复制原型
+            if (protoProps) defineProperties(Constructor.prototype, protoProps);
+            //复制属性
+            if (staticProps) defineProperties(Constructor, staticProps);
+            return Constructor;
+        };
+    }();
+
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+
+    function _possibleConstructorReturn(self, call) {
+        if (!self) {
+            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+        }
+        return call && (typeof call === "object" || typeof call === "function") ? call : self;
+    }
+
+    //下面是ES6继承使用ES5表达出来的代码，_inherits实现的是原型的继承和父类状态属性的继承：
+    function _inherits(subClass, superClass) {
+        if (typeof superClass !== "function" && superClass !== null) {
+            throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+        }
+        //继承父类的原型，并修正constructor为子类;
+        subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });
+        //又给子类这个对象定义__proto__ 为父类， 这样能够实现静态属性继承；
+        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+        //最后的如果开发者：new 子类， 实际的状态为： 对象{__proto__:父类,constuctor:子类}
+    };
+    /*
+    var Sup = function() {};
+    var Sub = function() {};
+    _inherits(Sub, Sup);
+    //这个继承实现的意思; 作为对象的子类继承父类， 作为构造函数的话，子类继承
+    Sub.prototype.__proto__ === Sup.prototype //true
+    Sub.prototype.constructor === Sub;//true
+    Sub.__proto__ === Sup;//true
+    */
+
+
+    var Person = function () {
+        function Person(name) {
+            _classCallCheck(this, Person);
+
+            this.name = name;
+        }
+
+        _createClass(Person, [{
+            key: "say",
+            value: function say() {
+                console.log("say hi");
+                return this;
+            }
+        }]);
+
+        return Person;
+    }();
+
+    ;
+
+    var SMan = function (_Person) {
+        _inherits(SMan, _Person);
+
+        function SMan(name, power) {
+            //此时的this.__proto__已经指向 构造函数的prototyp了
+            _classCallCheck(this, SMan);
+
+            //这句话相当于是ES6中的super()， 把父类的属性通过call， 执行继承;
+            var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SMan).call(this, name));
+
+            _this.superPower = power;
+            //动态返回_this;
+            return _this;
+        }
+
+        _createClass(SMan, [{
+            key: "show",
+            value: function show() {
+                console.log(this.superPower);
+                return this;
+            }
+        }]);
+
+        return SMan;
+    }(Person);
+
+    console.log(new SMan("Clark", "pee").show().say().name);
+
+
+
+    // 多重继承：
+    // 使用mix-in， 实现多重继承，  书写方式为：class Sub extends mix(obj0, obj1, obj2)  , mix只是一个方法 ，这个方法我们要自己去定义：
+     "use strict";
+
+    function mix(...mixins) {
+        class Mix {}
+
+        for (let mixin of mixins) {
+            copyProperties(Mix, mixin);
+            copyProperties(Mix.prototype, mixin.prototype);
+        }
+
+        return Mix;
+    }
+
+    function copyProperties(target, source) {
+        for (let key of Reflect.ownKeys(source)) {
+            if ( key !== "constructor"
+                    && key !== "prototype"
+                    && key !== "name"
+                    ) {
+                let desc = Object.getOwnPropertyDescriptor(source, key);
+                Object.defineProperty(target, key, desc);
+            }
+        }
+    }
+
+    class Man{
+        work () {
+            console.log("working");
+        }
+    }
+    class Woman{
+        say () {
+            console.log("saying");
+        }
+    }
+    class SuperMan extends mix(Man, Woman) {
+        constructor () {
+            super();
+        }
+    }
+
+    var sm = new SuperMan();
+    sm.work();
+    sm.say();
+    //实际上它们不存在继承关系， 只是把属性复制到子类上;
+    console.log(sm instanceof Man);
+    console.log(sm instanceof Woman);
+
+
+
+
+</script>
+	
+</body>
+</html>

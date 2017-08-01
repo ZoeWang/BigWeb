@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>数组的操作</title>
+</head>
+<body>
+
+<script>
+	// filter 
+	//过滤掉小于 10 的数组元素：
+
+	//代码：
+	function isBigEnough(element, index, array) {
+	    return (element >= 10);
+	}
+	var filtered = [12, 5, 8, 130, 44].filter(isBigEnough);
+	// 12, 130, 44
+	//结果：[12, 5, 8, 130, 44].filter(isBigEnough) ： 12, 130, 44
+
+
+	// map
+	//将所有的数组元素转换为大写：
+
+	var strings = ["hello", "Array", "WORLD"];
+	function makeUpperCase(v)
+	{
+	    return v.toUpperCase();
+	}
+	var uppers = strings.map(makeUpperCase);
+	// uppers is now ["HELLO", "ARRAY", "WORLD"]
+	// strings is unchanged
+	//结果：["hello", "Array", "WORLD"].map(makeUpperCase) ： HELLO, ARRAY, WORLD
+
+
+	// reduce
+	var total = [0, 1, 2, 3].reduce(function(a, b) {
+	    return a + b;
+	});
+	// total == 6
+</script>
+	
+</body>
+</html>

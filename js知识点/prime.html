@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>质数</title>
+</head>
+<body>
+	<p>质数：大于1且除自身外不能被其他自然数整除的数</p>
+	<script>
+		var prime = function(num) {
+			var i,j;
+			var arr = [];
+
+			for(i = 1; i < num; i++) {
+				for(j = 2; j < i; j++) {
+					if(i%j === 0) {
+						break;
+					}
+				}
+
+				if(i <= j && i != 1){
+					arr.push(i);
+				}
+			}
+
+			return arr;
+		}
+
+		document.write(prime(100));
+
+
+		function foo(n){  
+		  var a=[],state=0;  
+		  for(var i=2;i<n;i++){  
+		    var sqrt_i = Math.sqrt(i);  
+		    if(i%sqrt_i===0){  
+		      continue;  
+		    }  
+		    for(var j=2;j<sqrt_i;j++){  
+		      if(i%j===0){  
+		        state=1;  
+		        break;  
+		      }else{  
+		        state=0;  
+		      }  
+		    }  
+		   if(state===0){  
+		     a.push(i);  
+		   }  
+		  }  
+		  console.log(a);  
+		}  
+
+		foo(100) 
+
+	</script>
+</body>
+</html>

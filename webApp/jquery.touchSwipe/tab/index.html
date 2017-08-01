@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">	
+<LINK  href="css/163css.css" type=text/css rel=stylesheet>	
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.touchSwipe.min.js"></script>
+<title>jquery特效,css群:184852814,触屏特效,手机网页</title>
+</head>	
+<body>	
+<div class="box_163css">
+    <ul class="line">
+        <li class="on">新 闻</li>
+        <li>网 页</li>
+        <li>贴 吧</li>
+        <li>知 道</li>
+    </ul>
+    <div class="mid01_box">
+        <div class="roll">
+           <ul class="news_list">
+                <li><em class="em_arrow"></em>盘点与诺奖擦肩的中国作家</li>
+                <li><em class="em_arrow"></em>你所不知的超市里最脏的食物</li>
+                <li><em class="em_arrow"></em>马英九参加人权日活动遭扔鞋</li>
+                <li><em class="em_arrow"></em>济南豪华政府楼 仅次五角大楼</li>
+            </ul>
+        </div>
+        <div class="roll">
+           网 页
+        </div>
+        <div class="roll">
+            贴 吧
+        </div>
+        <div class="roll">
+            知 道
+        </div>
+    </div>
+</div>
+<div class="box_163css">
+    <ul class="line">
+        <li class="on">音 乐</li>
+        <li>图 片</li>
+        <li>视 频</li>
+        <li>地 图</li>
+    </ul>
+    <div class="mid01_box">
+        <div class="roll">
+            <ul class="news_list">
+                <li><em class="em_arrow"></em>盘点与诺奖擦肩的中国作家</li>
+                <li><em class="em_arrow"></em>你所不知的超市里最脏的食物</li>
+                <li><em class="em_arrow"></em>马英九参加人权日活动遭扔鞋</li>
+                <li><em class="em_arrow"></em>济南豪华政府楼 仅次五角大楼</li>
+            </ul>
+        </div>
+        <div class="roll">
+            图 片
+        </div>
+        <div class="roll">
+            视 频
+        </div>
+        <div class="roll">
+            地 图
+        </div>
+    </div>
+</div>
+		
+<script type="text/javascript">
+	$(function(){
+		var yi=0;
+		var y=0;
+		$('.line li').each(function(){
+			$(this).click(function(){
+			$(this).addClass('on');
+			$(this).siblings().removeClass('on');
+			var i=$(this).index();
+			yi=25*i;
+			var x=-yi+"%";			
+			$(this).parents('.box_163css').find('.mid01_box').css({'-webkit-transform':"translate("+x+")",'-webkit-transition':'500ms linear'} );	
+		 })															
+		})
+		$(".roll").each(function(){
+			$(this).swipe({					
+				swipeLeft:function(){
+					var i=$(this).index();
+					if(i==3){
+						return false;
+					}else{
+						var n=i+1;
+						y=25*n;
+						var t=-y+"%";					
+						$(this).parent('.mid01_box').css({'-webkit-transform':"translate("+t+")",'-webkit-transition':'500ms linear'} );	
+						
+						$(this).parents('.box_163css').find('.line li').eq(n).addClass('on');
+						$(this).parents('.box_163css').find('.line li').eq(n).siblings().removeClass('on')
+					}
+					
+				},
+				swipeRight:function() {
+					var i=$(this).index();
+					if(i==0){
+						return false;	
+					}else{
+						var n=i-1;
+						y=-25*n;							
+						var t=y+"%";					
+						$(this).parent('.mid01_box').css({'-webkit-transform':"translate("+t+")",'-webkit-transition':'500ms linear'} );								
+						$(this).parents('.box_163css').find('.line li').eq(n).addClass('on');
+						$(this).parents('.box_163css').find('.line li').eq(n).siblings().removeClass('on')
+					}
+					
+				}
+			});
+		})
+	});
+</script>	
+</body>
+</html>

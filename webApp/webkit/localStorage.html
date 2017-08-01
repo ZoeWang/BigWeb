@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</head>
+
+<body>
+
+<script type="text/javascript">
+
+if (localStorage.pagecount)
+{
+	localStorage.pagecount=Number(localStorage.pagecount) +1;
+}
+else
+{
+	localStorage.pagecount=1;
+}
+document.write("Visits: " + localStorage.pagecount + " time(s).");
+
+</script> 
+
+<p>刷新页面会看到计数器在增长。</p>
+
+<p>请关闭浏览器窗口，然后再试一次，计数器会继续计数。</p>
+
+</body>
+</html>

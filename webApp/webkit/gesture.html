@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+   <meta name="apple-mobile-web-app-capable" content="yes" /> 
+</head>
+<style type="text/css">
+	
+</style>
+<body>
+<p>多触式设备上特有的gesture event（android和iOS对这个事件的封装大同小异）。这个
+事件是对touch event的更高层的封装，和touch一样，它同样包括gesturestart，gesturechange，
+gestureend三个事件回调：</p>
+<pre>
+
+gesturestart    // 当有两根或多根手指放到屏幕上的时候触发 
+gesturechange    // 当有两根或多根手指在屏幕上，并且有手指移动的时候触发 
+gestureend    // 当倒数第二根手指提起的时候触发，结束gesture   
+
+</pre>
+
+<p>事件处理函数中会得到一个GestureEvent类型的参数，它包含了手指的scale（两根移动过程中分开的比例
+）信息和rotation（两根手指间连线转动的角度）信息。</p>
+<p> 当两根或以上的手指在屏幕上活动的时候，我们可以做出一些较为复杂的手势。这将涉及到普通的mouse事
+件，touch事件和gesture事件，情况比较复杂。 </p>
+<p> 我们还是先看看当分别将两根手指放到屏幕上的时候，会触发哪些事件吧： </p>
+ 
+<ol>
+  <li>第一根手指放下，触发touchstart，除此之外什么都不会发生（手指提起才会触发
+mouse的各事件）</li>
+  <li>第二根手指放下，触发gesturestart </li>
+  <li>触发第二根手指的touchstart</li>
+  <li>立即触发gesturechange </li>
+  <li>手指移动，持续触发gesturechange，就像鼠标在屏幕上移动的时候不停触发mousemove一样 </li>
+  <li>第二根手指提起，触发gestureend，以后将不会再触发gesturechange </li>
+  <li>触发第二根手指的touchend </li>
+  <li>触发touchstart！注意，和第一篇文章里介绍的一样，多根手指在屏幕上，提起一根，会刷新一次全局
+touch！重新触发第一根手指的touchstart，这点和苹果官方网站上介绍的不同。</li>
+  <li>提起第一根手指，触发touchend </li>
+</ol>  
+   
+<p>Gesture事件的处理和Touch类似，我们一般会在gesturechange的时候利用GestureEvent对象中的信息来
+做一些事情：</p>
+
+<pre>
+var angle = event.rotation; 
+var scale = event.scale; 
+</pre>
+
+<p>这样能够取得scale和rotation信息，然后我们可以： </p>
+
+<pre>
+e.target.style.webkitTransform = 'scale(' + e.scale + startScale + ') rotate(' + e.rotation + 
+startRotation + 'deg)'; 
+</pre>
+
+<p>还有一件要说明的事情是，对于复杂手势，是否会触发某些鼠标事件？确实有，不过我只找到了一个。不管
+你的两根手指在屏幕上伸缩还是转动，都不会有任何鼠标事件触发，但当你的两根手指同时朝上或者朝下移动
+的时候，则会触发某些事件。请看下图：</p>
+
+<img src="img/two-fingers.png" alt="">
+
+<p>两根手指同时向上或向下滚动，如果target element是一个scrollable element（也就是绑定了mousewheel的
+element）的话，将会触发mousewheel事件。如果不是scrollable element，则当手指停止移动的时候，会触
+发onscoll。这里请和第二篇文章的body scroll区别一下，如果你要滚动body，只需要一根手指轻轻拂动屏幕
+，但是你要滚动一个内部div或者iframe，则需要动用两根手指。     这也是多触式设备一个不太方便的地方。而对于我们开发者来说，这种不方便被放大了。。。因为从用户体验角度来说，要求用户使用两根手指滚动一个内部element显然是不合适的，而要实现像滚动body一样用一根手指优雅地滚动，我们必须利用touchevent，在它的回调函数中用代码来实现scroll。</p>
+
+<p>这里介绍一个段很不错的
+多触式滚动组件：<a href="http://cubiq.org/iscroll-4">iscroll-4</a> </p>
+<a href="http://cubiq.org/scrolling-div-on-iphone-ipod-touch">http://cubiq.org/scrolling-div-on-iphone-ipod-touch</a>
+<p>用起来很简单，new一个iScroll对象，传入需要滚动的inner element作为参数就行了。 </p>
+</body>
+</html>

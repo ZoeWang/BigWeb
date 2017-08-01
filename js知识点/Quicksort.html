@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>快速排序</title>
+</head>
+<body>
+	<script>
+		var quickSort = function(arr) {
+			if(arr.length <= 1) { return arr; }
+
+			var pivotIndex = Math.floor(arr.length / 2);
+
+			// splice() 方法向/从数组中添加/删除项目，然后返回被删除的项目。
+
+			var pivot = arr.splice(pivotIndex, 1)[0];
+
+			var left = [];
+			var right = [];
+
+			for (var i = 0; i < arr.length; i++){
+
+			　　if (arr[i] < pivot) {
+			　　　　left.push(arr[i]);
+			　　} else {
+			　　　　right.push(arr[i]);
+			　　}
+			}
+			return quickSort(left).concat([pivot], quickSort(right));
+
+		}
+
+		var arr = [85,24,76,45,15,31,97,50];
+		console.log(quickSort(arr));
+	</script>
+</body>
+</html>

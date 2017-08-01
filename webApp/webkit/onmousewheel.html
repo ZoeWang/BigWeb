@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+   <meta name="apple-mobile-web-app-capable" content="yes" /> 
+</head>
+<style type="text/css">
+	
+</style>
+<body>
+<script>
+addEventListener('load',　　function(){ window.onmousewheel = twoFingerScroll;}, 
+     false              //滚轮事件 兼容各浏览器，表示在冒泡阶段调用事件处理程序 (true 捕获阶段)
+); 
+function twoFingerScroll(ev) { 
+    var delta =ev.wheelDelta/120;              //对 delta 值进行判断(比如正负) 正上滚，负下滚，而后执行相应操作 
+    alert(delta);
+    return true; 
+}; 
+</script>
+	
+</body>
+</html>

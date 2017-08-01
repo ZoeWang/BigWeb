@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="utf-8" />
+<style>
+.masked{
+     background:url(img/paint.png);
+    -webkit-text-fill-color:transparent;
+    -webkit-background-clip:text;
+    -webkit-animation-name:masked-animation;
+    -webkit-animation-duration:40s;
+    -webkit-animation-iteration-count:infinite;
+    -webkit-animation-timing-function:linear;
+    color:#fff;
+}
+@-webkit-keyframes masked-animation {
+    0% {background-position:left bottom;}
+    100% {background-position:right bottom;}
+}
+h1{
+	font-weight: bold;
+	font-family: "微软雅黑";
+}
+</style>
+</head>
+<body>
+<div class="masked">
+    <h1>这是一段可选文字</h1>
+</div>
+</body>
+</html>

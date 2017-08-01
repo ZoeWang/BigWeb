@@ -1,0 +1,589 @@
+@charset "UTF-8";
+html {
+    font-size: 10px;
+    font-family:'微软雅黑';
+}
+
+body {
+    margin: 0;
+    font-family: '微软雅黑';
+}
+.section.table{
+    margin: 0;   /*bootstrap 中.table margin-bottom: 20px;*/
+}
+.section .tableCell{
+    display: block;
+}
+/************************************/
+
+.page-title {
+    display: block;
+    position: relative;
+    margin-top: 40px;
+    text-align: center;
+    font-size: 1.8rem;
+    color: #152E34;
+    opacity: 0;
+}
+
+.word-fade {
+    opacity: 1;
+    -webkit-animation: fadeInDown .5s ease .2s 1
+}
+
+/*****************page2*******************/
+.bottom-content {
+    box-sizing: border-box;
+    position: relative;
+    padding: 0 10px;
+    width: 100%;
+    margin: 10px auto;
+    text-align: center;
+    line-height: 150%;
+    font-size: 1.2rem
+}
+
+/********************page 3********************/
+.point-animation .chart-cover {
+    -webkit-transition-property: -webkit-transform,opacity;
+    -webkit-transition-timing-function: ease;
+    -webkit-transition-duration: 1.8s;
+    -webkit-transition-delay: .3s;
+    -webkit-transform: translate3d(640px, 0, 0) !important
+}
+
+.point-animation .chart-value {
+    -webkit-transition-property: opacity -webkit-transform;
+    -webkit-transition-timing-function: ease;
+    -webkit-transition-duration: 0.8s;
+    -webkit-transition-delay: .3s;
+    opacity: 1 !important;
+    -webkit-transform: scale(1, 1) !important
+}
+
+.point .wrapper-point .point-chart {
+    position: relative;
+    margin: 50px auto;
+    width: 100%;
+    height: 211px;
+}
+
+.point .wrapper-point .point-chart .chart-background {
+    position: absolute;
+    z-index: 3
+}
+
+.point .wrapper-point .point-chart .chart-line {
+    position: absolute;
+    z-index: 1
+}
+
+.point .wrapper-point .point-chart .chart-cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 2;
+    left: 0;
+    bottom: 34px
+}
+
+.point .wrapper-point .point-chart .chart-value {
+    position: absolute;
+    display: inline-block;
+    width: 30px;
+    height: 20px;
+    background-color: #00ac82;
+    text-align: center;
+    line-height: 20px;
+    z-index: 4;
+    opacity: 0;
+    color: white;
+    -webkit-transform: scale(-1, 1)
+}
+
+.point .wrapper-point .point-chart #firstValue {
+    left: 22%;
+    top: 65%
+}
+
+.point .wrapper-point .point-chart #secondValue {
+    left: 44%;
+    top: 43%
+}
+
+.point .wrapper-point .point-chart #thirdValue {
+    left: 66%;
+    top: 22%
+}
+
+.point .wrapper-point .point-chart #fourthValue {
+    left: 84%;
+    top: -2%;
+    width: 45px !important;
+    height: 30px !important;
+    line-height: 30px !important;
+    font-weight: bold;
+    font-size: 15px
+}
+/******************map************************/
+.china-map {
+    display: block;
+    position: relative;
+    margin: 0 auto;
+}
+
+.china-map .red-branch {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #00AC82;
+    opacity: 0;
+    -webkit-transition-property: opacity;
+    -webkit-transition-timing-function: ease;
+    -webkit-transition-duration: .3s
+}
+
+.china-map #redb1 {
+    top: 127px;
+    right: 62px
+}
+
+.china-map #redb2 {
+    top: 103px;
+    right: 77px
+}
+
+.china-map #redb3 {
+    bottom: 60px;
+    right: 61px
+}
+
+.china-map #redb4 {
+    top: 85px;
+    right: 73px
+}
+
+.china-map #redb5 {
+    bottom: 79px;
+    right: 54px
+}
+
+.china-map #redb6 {
+    top: 104px;
+    right: 64px
+}
+
+.china-map #redb7 {
+    bottom: 55px;
+    right: 130px
+}
+
+.china-map #redb8 {
+    bottom: 42px;
+    right: 66px
+}
+
+.china-map #redb9 {
+    top: 107px;
+    right: 105px
+}
+
+.china-map #redb10 {
+    bottom: 43px;
+    right: 85px
+}
+
+.china-map #redb11 {
+    bottom: 57px;
+    right: 100px
+}
+
+.china-map #redb12 {
+    top: 65px;
+    right: 56px
+}
+
+.china-map #redb13 {
+    bottom: 81px;
+    right: 76px
+}
+
+.china-map #redb14 {
+    top: 82px;
+    right: 100px
+}
+
+.china-map #redb15 {
+    bottom: 24px;
+    right: 93px
+}
+
+.china-map #redb15 {
+    bottom: 56px;
+    right: 67px
+}
+
+.china-map #redb16 {
+    top: 71px;
+    right: 83px
+}
+
+.china-map #redb17 {
+    bottom: 35px;
+    right: 112px
+}
+
+.china-map #redb18 {
+    bottom: 31px;
+    right: 50px
+}
+
+.china-map #redb19 {
+    top: 58px;
+    right: 45px
+}
+
+.china-map #redb20 {
+    bottom: 25px;
+    right: 93px
+}
+
+.china-map .circle-skip {
+    opacity: 1;
+    -webkit-animation: skip .3s ease .3s 1
+}
+
+.map-desc .dot-blank {
+    opacity: 1
+}
+.map-desc .distct-desc .special {
+    color: #1C3339
+}
+/**************circle**************/
+.circle .col-xs-6{
+    text-align: center;
+}
+.circle .col-xs-3{
+    font-size: .8rem;
+    text-align: center;
+    margin: 30px 0;
+    padding: 0 10px;
+}
+.circle .col-xs-3:nth-child(1){
+    background: #214651;
+    color: #fff;
+    margin-top:50px; 
+    margin-left: 10px;
+    margin-right: -10px;
+}
+/*****************person**********************/
+#distDesc1{
+    width: 80%;
+    margin: 0 auto;
+}
+.person-list {
+    position: relative;
+    width: 80%;
+    margin: 30px auto;
+    -webkit-padding-start: 0
+}
+
+.person-list li {
+    list-style: none;
+    margin-bottom: 10px;
+    opacity: 0
+}
+
+.person-list li .person {
+    display: inline-block;
+    vertical-align: middle;
+    width: 19px;
+    height: 67px;
+    background: url(../img/ren.png) no-repeat;
+    margin: 0;
+    -webkit-animation: bounceInUp .5s ease 0s 1
+}
+
+.person-list li .person-count {
+    display: inline-block;
+    vertical-align: middle;
+    width: 70px;
+    height: 57px;
+    font-size: 2.1rem;
+    color: #5CD1E2
+}
+
+.person-list li .person-count p {
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    width: 100%;
+    text-align: center;
+    font-family: "Arial"
+}
+
+.person-list li .person-count .person-season {
+    width: 70px;
+    height: 20px;
+    text-align: center;
+    background-color: #152E34;
+    font-size: 1.0rem;
+    color: #FFFFFF;
+    line-height: 20px
+}
+
+/***************page78*********************/
+.botdesc-up {
+    opacity: 1;
+    -webkit-animation: fadeInUp .5s ease .3s 1
+}
+.report-desc {
+    display: block;
+    position: relative;
+    width: 100%;
+    padding: 0 10px;
+    margin: 0 auto;
+    margin-top: 10px;
+    box-sizing: border-box;
+    font-size: 1.2rem;
+    color: #666666;
+    opacity: 1;
+    line-height: 150%
+}
+.report-desc .special {
+    color: #1C3339
+}
+.special-icon1 {
+    position: relative;
+    width: 137px;
+    height: 152px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.special-icon2 {
+    position: relative;
+    width: 137px;
+    margin: 0 auto; 
+    margin-top: 20px;
+}
+
+.laoyu {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+   
+}
+
+.yikuai {
+    display: block;
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+/************page 9************/
+.right-coner {
+    display: block;
+    position: relative;
+    text-align: right;
+    margin-right: 20px;
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #00AC82;
+}
+
+.right-coner .right-corner {
+    display: inline-block;
+    width: 39px;
+    height: 43px;
+    background: url(../img/arrowright.png) no-repeat
+}
+
+.tail-center {
+    display: block;
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 100px;
+    text-align: center
+}
+
+.tail-center .big-title {
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    font-weight: normal;
+    text-align: center;
+    font-size: 3.1rem;
+    color: #152E34
+}
+
+.tail-center .small-letter {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 2.1rem;
+    color: #152E34
+}
+
+.tail-center .big-letter {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 2.6rem;
+    color: #152E34
+}
+
+.tail-center .special {
+    color: #00AC82
+}
+
+.tail-center .link-button {
+    display: block;
+    text-decoration: none;
+    box-sizing: border-box;
+    outline: none;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: rgba(255,255,255,0);
+    width: 178px;
+    padding: 15px 25px;
+    margin: 0 auto;
+    margin-top: 70px;
+    color: #FFFFFF;
+    font-size: 1.6rem;
+    background-color: #00AC82;
+    border-radius: 8px;
+    opacity: 1;
+    -webkit-transition-property: opacity;
+    -webkit-transition-timing-function: ease;
+    -webkit-transition-duration: .5s
+}
+
+
+
+.tail-center .skipUp {
+    opacity: 1;
+    -webkit-animation: bigSmall 1s ease .5s 1;
+}
+/*向上图标*/
+@-webkit-keyframes start {
+    0%,30% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 20px, 0)
+    }
+
+    60% {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0)
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -16px, 0)
+    }
+}
+
+.arrow-up {
+    position: fixed;
+    bottom: 30px;
+    width: 34px;
+    height: 42px;
+    z-index: 10;
+    left: 50%;
+    margin-left: -17px;
+}
+
+.arrow-up img {
+    position: absolute;
+    width: 34px;
+    height: 43px;
+    -webkit-animation: start 1.5s infinite ease-in-out;
+}
+
+@-webkit-keyframes skip {
+    0% {
+        -webkit-transform: scale(1)
+    }
+
+    50% {
+        -webkit-transform: scale(1.2)
+    }
+
+    100% {
+        -webkit-transform: scale(1)
+    }
+}
+
+@-webkit-keyframes bigSmall {
+    0% {
+        -webkit-transform: scale(1)
+    }
+
+    60% {
+        -webkit-transform: scale(1.5)
+    }
+
+    90% {
+        -webkit-transform: scale(0.8)
+    }
+
+    100% {
+        -webkit-transform: scale(1)
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0
+    }
+
+    100% {
+        opacity: 1
+    }
+}
+
+@-webkit-keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(-20px)
+    }
+
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0)
+    }
+}
+
+@-webkit-keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(20px)
+    }
+
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0)
+    }
+}
+
+@-webkit-keyframes bounceInUp {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(2000px)
+    }
+
+    60% {
+        opacity: 1;
+        -webkit-transform: translateY(-30px)
+    }
+
+    80% {
+        -webkit-transform: translateY(10px)
+    }
+
+    100% {
+        -webkit-transform: translateY(0)
+    }
+}
+

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+   <meta name="renderer" content="webkit">
+   <meta http-equiv="Cache-Control" content="no-siteapp" />
+   <meta name="apple-mobile-web-app-title" content="webapp meta 简介" />
+   <title>webapp meta 简介</title>
+</head>
+<body>
+
+触摸屏设备IOS、Android、BBOS6等系统自带浏览器均为WEBKIT核心，这就说明PC上面尚未立行的HTML5 CSS3能够运用在这里。
+-------------------------------------------------------------------------------------------
+0、固定宽度定义
+途牛
+<meta id="viewport" content="target-densitydpi=device-dpi,width=640,user-scalable=no,initial-scale=0.5" name="viewport">
+适配屏幕
+<script>
+	var viewPortScale;
+	var dpr = window.devicePixelRatio;
+	viewPortScale = 0.5;
+
+	var detectBrowser = function(name) {
+	    if(navigator.userAgent.toLowerCase().indexOf(name) > -1) {  //判断浏览器类型
+	        return true;
+	    } else {
+	        return false;
+	    }
+	};
+	var width = parseInt(window.screen.width);
+	var scale = Math.ceil((width*100)/640)/100;
+	var userScalable = 'no';
+	if(detectBrowser("qq/")) userScalable = 'yes';
+	document.getElementById('viewport').setAttribute(
+	'content', 'target-densitydpi=device-dpi,width=640,user-scalable='+userScalable+',initial-scale=' + scale);
+</script>
+判断浏览器
+<script>
+function UA () {
+    var ua = navigator.userAgent;
+    //小米2、3、4
+    if (/mi (\d+)/.exec(ua.toLowerCase())) {
+        return true;
+    }
+    //红米
+    if (/hm(\d+)/.exec(ua.toLowerCase())) {
+        return true;
+    }
+    //nexus
+    if (/nexus (\d+)/.exec(ua.toLowerCase())) {
+        return true;
+    }
+    //华为
+    if (/huawei/.exec(ua.toLowerCase())) {
+        return true;
+    }
+    //三星GT-XXX
+    // if (/gt-/.exec(ua.toLowerCase())) {
+    //     return true;
+    // }
+    //三星SM-XXX
+    // if (/sm-/.exec(ua.toLowerCase())) {
+    //     return true;
+    // }
+}
+if(UA()) window.location.href='/topic/report/2014/index2.html';
+</script>
+    
+
+<meta name="viewport" content="initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no"> 淘宝 以固定宽度640px 写 的
+0.1、iPhone上，指定viewport 的width等于页面设计宽度：
+<meta name="viewport" content="target-densitydpi=device-dpi, width=480px, user-scalable=no" />
+
+0.2、Android上，根据公式计算得出target-densitydpi的值，指定到viewport：
+get-target-densitydpi = UI-width / device-width * window.devicePixelRatio * 160;
+
+//UI-width ：WebApp布局宽度
+//device-width ：屏幕分辨率宽度
+<meta name="viewport" content="target-densitydpi=get-target-densitydpi, width=device-width, user-scalable=no" />
+
+-------------------------------------------------------------------------------------------
+1、<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">   
+在iPhone的浏览器中页面将以原始大小显示，不允许缩放。 
+ 
+width - viewport的宽度 
+height - viewport的高度   
+initial-scale - 初始的缩放比例  
+minimum-scale - 允许用户缩放到的最小比例   
+maximum-scale - 允许用户缩放到的最大比例  
+user-scalable - 用户是否可以手动缩放 no 或 0 不可以 yes 或 1 可以 
+
+（注意：实际测试中发现，HTC G7自身系统浏览器不支持这一条规则，能够对页面进行放大，一旦放大响应的box也随之放大，导致俄页面出现错乱问题，解决方法：定义页面的最小宽度 min-width，body{min-width: 300px;}）
+---------------------------------------------------------------------------------------------
+2、在iPhone 手机上默认值是（电话号码显示为拨号的超链接）：
+<meta name="format-detection" content="telephone=yes"/>
+
+可将telephone=no，则手机号码不被显示为拨号链接
+<meta name="format-detection" content="telephone=no"/>
+或
+<meta content="telephone=no,email=no" name="format-detection">
+
+解释：使设备浏览网页时对数字不启用电话功能（不同设备解释不同，itouch点击数字为存入联系人，iphone为拨打电话），忽略将页面中的数字识别为电话号码。
+若需要启用电话功能将telephone=yes即可，具体调用格式可以这样书写代码<a href=”13888888888″>Call Me</a>。若在页面上面有google maps, iTunes和youtube的链接会在ios设备上打开相应的程序组件。
+
+---------------------------------------------------------------------------------------------
+
+3、ios设备对meta定义的私有属性：（可以添加至主屏幕）
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+网站开启对web app程序的支持。
+
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+在web app应用下状态条（屏幕顶部条）的颜色；
+默认值为default（白色），可以定为black（黑色）和black-translucent（灰色半透明）。
+
+若值为“black-translucent”将会占据页面px位置，浮在页面上方（会覆盖页面20px高度–iphone4和itouch4的Retina屏幕为40px）。
+
+两个meta的设置即可对web app程序进行支持了。
+
+---------------------------------------------------------------------------------------------
+
+4、苹果web app其他设置：
+当然，配合web app的icon 和 启动界面需要额外的两端代码进行设定，如下所示：
+
+<link rel="apple-touch-icon-precomposed" href="iphone_milanoo.png" />
+说明：这个link就是设置web app的放置主屏幕上icon文件路径（图片四）。
+使用：该路径需要注意的就是放到将网站的文档根目录下但不是服务器的文档的根目录。
+图片尺寸可以设定为57*57（px）或者Retina可以定为114*114（px），ipad尺寸为72*72（px）
+
+<link rel="apple-touch-startup-image" href="milanoo_startup.png" />
+说明：这个link就是设置启动时候的界面（图片五），放置的路劲和上面类似。
+使用：该路径需要注意的就是放到将网站的文档根目录下但不是服务器的文档的根目录。
+官方规定启动界面的尺寸必须为 320*640（px），原本以为Retina屏幕可以支持双倍，但是不支持，图片显示不出来。
+还要说明下，如图三，里面的默认名称为代码title标签的内容。
+
+---------------------------------------------------------------------------------------------
+
+5、<meta name="apple-touch-fullscreen" content="yes">"添加到主屏幕“后，全屏显示 <meta name="apple-mobile-web-app-capable" content="yes" />
+这meta的作用就是删除默认的苹果工具栏和菜单栏。content有两个值”yes”和”no”,当我们需要显示工具栏和菜单栏时，这个行meta就不用加了，默认就是显示。
+至此，一个web app建立完成。
+
+
+
+下面介绍一些有关标记的例子及解释。
+
+一、meta 标签分两大部分：HTTP 标题信息（http-equiv）和页面描述信息（name）。
+
+1、http-equiv 属性的 Content-Type 值（显示字符集的设定）
+
+说明：设定页面使用的字符集，用以说明主页制作所使用的文字语言，浏览器会根据此来调用相应的字符集显示 page 内容。
+
+用法：
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+注意：该 meta 标签定义了 HTML 页面所使用的字符集为 utf-8 ，就是万国码。它可以在同一页面显示中文简体、繁体及其它语言（如日文，韩文）等。
+
+
+2、name 属性的 viewport 值（移动屏幕的缩放）
+
+也就是可视区域。对于桌面浏览器，我们都很清楚 viewport 是什么，就是除去了所有工具栏、状态栏、滚动条等等之后用于看网页的区域，这是真正有效的区域。由于移动设备屏幕宽度不同于传统 web，因此我们需要改变 viewport 值。
+
+实际上我们可以操作的属性有 4 个：
+
+width – // viewport 的宽度 （范围从 200 到 10,000，默认为 980 像素）
+height – // viewport 的高度 （范围从 223 到 10,000 ）
+initial-scale – // 初始的缩放比例 （范围从 > 0 到 10）
+minimum-scale – // 允许用户缩放到的最小比例
+maximum-scale – // 允许用户缩放到的最大比例
+user-scalable – // 用户是否可以手动缩放 (no，yes)
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+说明：
+强制让文档与设备的宽度保持 1:1 ；
+文档最大的宽度比列是1.0（ initial-scale 初始刻度值和 maximum-scale 最大刻度值）；
+user-scalable 定义用户是否可以手动缩放（ no 为不缩放），使页面固定设备上面的大小；
+注意：实际测试中发现，有些安卓系统自带的浏览器并不支持这一条规则，能够对页面进行放大，一旦放大响应的 box 也随之放大，导致页面出现错乱问题，解决方法：定义页面的最小宽度
+
+body {
+    min-width: 320px;
+}
+
+
+3、name 属性的 format-detection 值（忽略页面中的数字识别为电话号码）
+<meta name="format-detection" content="telephone=no" />
+<meta name="format-detection" content="address=no;email=no" />
+
+说明：
+使设备浏览网页时对数字不启用电话功能（不同设备解释不同，iTouch 点击数字为存入联系人，iPhone 为拨打电话），忽略将页面中的数字识别为电话号码。
+若需要启用电话功能将 telephone=yes 即可，若在页面上面有 Google Maps, iTunes 和 YouTube 的链接会在ios设备上打开相应的程序组件。
+
+
+4、name 属性的 apple-mobile-web-app-capable 值（网站开启对 web app 程序的支持）
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+
+说明：
+网站开启对 web app 程序的支持。
+该 meta 可以看出内容为“苹果设备 web 应用程序 xx”，就是说该 meta 是专门定义 web 应用的。
+
+5、name 属性的 apple-mobile-web-app-status-bar-style 值（改变顶部状态条的颜色）
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+说明：
+在 web app 应用下状态条（屏幕顶部条）的颜色；
+默认值为 default（白色），可以定为 black（黑色）和 black-translucent（灰色半透明）；
+注意：若值为“black-translucent”将会占据页面位置，浮在页面上方（会覆盖页面 20px 高度 iphone4 和 itouch4 的 Retina 屏幕为 40px ）。
+
+6、name 属性设置作者姓名及联系方式
+<meta name="author" contect="liudanyun, liudy102@163.com" />
+
+二、苹果 Web App 其他设置：
+当然，配合 Web App 的 icon 和启动界面需要额外的两端代码进行设定，如下所示：
+<link rel="apple-touch-icon-precomposed" href="iphone_logo.png" />
+
+说明：这个 link 就是设置 Web App 的放置主屏幕上 icon 文件路径（图片四）。
+apple-touch-icon-precomposed 添加到桌面时有圆角，高光修饰。
+apple-touch-icon只有圆角，没有高光修饰。
+
+使用：
+该路径需要注意的就是放到将网站的文档根目录下但不是服务器的文档的根目录。
+图片尺寸可以设定为 57*57（px）或者 Retina 可以定为 114*114（px），iPad 尺寸为 72*72（px）
+
+7、<link rel="apple-touch-startup-image" href="logo_startup.png" />
+说明：这个 link 就是设置启动时候的界面。
+使用：
+放置的路径和上面一样。
+官方规定启动界面的尺寸必须为 320*640（px），原本以为 Retina 屏幕可以支持双倍，但是不支持，图片显示不出来。
+如果对 Web App 的这两个 meta 还有不能详细理解的可以查看官方解释：Meta Tags
+
+
+下面介绍一些淘宝常用的
+
+淘宝使用最多的Slide/Switchable
+让他们支持touch事件
+
+触屏事件不要用click代替
+
+<input type="number" >
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button{
+    -webkit-appearance: none !important;
+    margin: 0; 
+}
+input[type="number"]{-moz-appearance:textfield;}
+这一段，去掉 后面的小箭头
+
+在Android 下 placeholder会失效
+
+h5 页面 建议用tel 代替 number 用 placeholder 属性的话
+
+手机上按钮禁用 仍可点击 事件存在
+
+webapp 和 position:fixed 的不可协调性，Android 手机 软键盘会覆盖 有position:fixed 属性的输入框 ，设计上规避
+
+<p>css 里面背景图用绝对地址，有些手机浏览器解析背景图有限制</p>
+</body>
+</html>

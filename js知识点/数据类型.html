@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>数据类型</title>
+</head>
+<body>
+字符串、数字、布尔、数组、对象、Null、Undefined
+
+基本数据类型：Undefined、Null、Boolean、Number、String
+
+[0.1.1]基本类型值是指简单的数据段，5种基本类型是按值访问的，因为可以操作保存在变量中的实际值
+        [0.1.2]基本类型的值在内存中占据固定大小的空间，被保存在栈内存中。从一个变量向另一个变量复制基本类型的值，会创建这个值的一个副本。
+        [0.1.3]不能给基本类型的值添加属性
+
+引用数据类型：Object
+[0.2.1]引用类型值是指那些可以由多个值构成的对象。js不允许直接访问内存中的位置，也就是不能直接访问操作对象的内存空间。在操作对象时，实际上是在操作对象的引用而不是实际的对象。
+        [0.2.2]引用类型的值是对象，保存在堆内存中，包含引用类型值的变量实际上包含的并不是对象本身，而是一个指向该对象的指针。从一个变量向另一个变量复制引用类型的值，复制的其实是指针，因此两个变量最终都指向同一个对象。
+        [0.2.3]对于引用类型的值，可以为其添加属性和方法，也可以改变和删除其属性和方法
+
+复合数据类型
+        http://www.cnblogs.com/roooc/archive/2012/09/12/2679041.html
+	<script>
+		typeof null
+		"object"
+		typeof undefined
+		"undefined"
+
+
+		如何判断一个变量是数组类型
+
+		1、var a=new Array();
+		    a instanceof Array; //true
+		2、var a=new Array();
+		    a.constructor==Array; //true
+		3、对支持isArray的浏览器
+		var a=new Array();
+		     Array.isArray(a); //true
+
+
+
+null == undefined
+true
+null === undefined
+false
+typeof null
+"object"
+NaN == undefined
+false
+NaN === undefined
+false
+NaN == NaN
+false
+
+isNaN(NaN)
+true
+	</script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="css/163css.css" rel="stylesheet" type="text/css">			
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript" src="js/jquery.touchSwipe.min.js"></script>
+<title>jquery特效,css群:184852814,触屏特效,手机网页</title>
+</head>
+<body>
+    <div class="box_163css">
+    	<div class="roll">
+        <p>朝中社12日报道，12日朝鲜使用"银河3号"运载火箭从平安北道铁山郡的西海卫星发射场成功发射了第二颗"光明星3号"卫星，卫星已经进入预定轨道。朝方此前介绍，"光明星3号"是太阳同步轨道卫星，入轨后将播放《金日成将军之歌》和《金正日将军之歌》。
+</p> 
+		<p>据朝日新闻消息，北京时间8点49分，火箭从朝鲜西岸往南发射。早上8时58分，朝鲜火箭分离后，一部分落入朝鲜半岛以西200公里黄海上，1分钟后，8点59分，另一部分落入朝鲜半岛西南300公里东海上。早上9时5分，第三部分落在菲律宾以东300公里太平洋上。
+
+</p> 
+		<p>12月12日上午，朝鲜再次发射火箭。随后朝中社宣布了"光明星3号"卫星发射成功的消息。据统计，从1993年到2012年4月间，朝鲜共进行了6次已知的较大规模火箭和弹道导弹发射试验。其中，3次发射搭载有卫星，其余3次均为中程和远程弹道导弹试射。不过，根据公开报道，朝鲜3次卫星发射均失败。
+
+</p>
+         <p>光明星1号发射失败：1998年8月31日，朝鲜宣布成功发射"光明星1号"卫星，美国航天司令部宣布在朝方指定位置根本没有观察到任何物体。
+
+</p> 
+		<p>光明星2号发射失败：2009年4月5日，朝鲜宣布利用运载火箭"银河2号"发射"光明星2号"卫星。但外界未能在朝鲜所称位置追踪到卫星，亦未能监测到卫星播发的广播信号，因此怀疑此次发射也未能成功。
+
+</p> 
+		<p>12月12日上午，朝鲜再次发射火箭。随后朝中社宣布了"光明星3号"卫星发射成功的消息。据统计，从1993年到2012年4月间，朝鲜共进行了6次已知的较大规模火箭和弹道导弹发射试验。其中，3次发射搭载有卫星，其余3次均为中程和远程弹道导弹试射。不过，根据公开报道，朝鲜3次卫星发射均失败。
+
+</p>
+         <p>光明星1号发射失败：1998年8月31日，朝鲜宣布成功发射"光明星1号"卫星，美国航天司令部宣布在朝方指定位置根本没有观察到任何物体。
+
+</p> 
+		<p>光明星2号发射失败：2009年4月5日，朝鲜宣布利用运载火箭"银河2号"发射"光明星2号"卫星。但外界未能在朝鲜所称位置追踪到卫星，亦未能监测到卫星播发的广播信号，因此怀疑此次发射也未能成功。
+
+</p> 
+    	</div>
+        <div class="rollbg"></div>
+    </div>
+ <script type="text/javascript">
+	$(function(){
+		var ht = $(".roll").height();
+		var hdiv=$('.box_163css').height();
+		var ds=200;
+		var w=ht/ds;
+		var dh=$('.rollbg').height();
+		var x=(hdiv-dh)/w;
+		$(".roll").swipe({			
+				 swipeUp:function(){				  
+				  var b=$(this).css('top');
+				  var s =Math.abs(parseInt(b));
+				  var qq=ht-hdiv;			 
+				  if(s>qq){
+				 	$(this).animate({'top':'0'},500);
+					$('.rollbg').animate({'top':'5px'},500);	
+				  }else{
+					   $(this).animate({'top':'-='+ds+'px'},500);
+				 	   $('.rollbg').animate({'top':'+='+x+'px'},500);
+				  }  
+				},
+				swipeDown:function(){				
+					var b=$(this).css('top');
+					var s=Math.abs(parseInt(b));
+					if(s==0){
+						$(this).css('top','0');	
+					}else{
+						$(this).animate({'top':'+='+ds+'px'},500);
+						$('.rollbg').animate({'top':'-='+x+'px'},500);
+					}
+					
+				}
+			});		
+	});
+</script>
+
+</body>
+</html>

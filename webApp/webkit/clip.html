@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>clip demo</title>
+	<style>
+* {
+	margin:0;
+	padding: 0;
+}	
+
+#wrapper {
+	position: relative;
+	width: 386px;
+	margin:50px auto;
+	list-style: none outside none;
+}	
+#wrapper li {
+	width: 128px;
+	height: 128px;
+	float: left;
+	position: relative;
+}
+.icons {
+	position:absolute;
+	top:0;
+	left:0;
+}
+
+.happy {
+	clip: rect(0 256px 128px 128px);
+	left:-128px;
+}
+
+.angry {
+	clip: rect(0 384px 128px 256px);
+	left:-256px;
+}
+
+.sad {
+	clip: rect(0 128px 128px 0);
+}
+	</style>
+</head>
+<body>
+     <ul id="wrapper">
+     	<li><img src="img/icons.png" alt="Happy Icon" class="icons happy" /></li>
+     	<li><img src="img/icons.png" alt="Sad Icon" class="icons sad" /></li>
+     	<li><img src="img/icons.png" alt="Angry Icon" class="icons angry" /></li>
+     </ul>
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<script>
+		
+		var XHR=null;  
+		if (window.XMLHttpRequest) {  
+		    // 非IE内核  
+		    XHR = new XMLHttpRequest();  
+		} else if (window.ActiveXObject) {  
+		    // IE内核,这里早期IE的版本写法不同,具体可以查询下  
+		    XHR = new ActiveXObject("Microsoft.XMLHTTP");  
+		} else {  
+		    XHR = null;  
+		}  
+		  
+		if(XHR){  
+		    XHR.open("GET", "ajaxServer.action");  
+		  
+		    XHR.onreadystatechange = function () {  
+		        // readyState值说明  
+		        // 0,初始化,XHR对象已经创建,还未执行open  
+		        // 1,载入,已经调用open方法,但是还没发送请求  
+		        // 2,载入完成,请求已经发送完成  
+		        // 3,交互,可以接收到部分数据  
+		  
+		        // status值说明  
+		        // 200:成功  
+		        // 404:没有发现文件、查询或URl  
+		        // 500:服务器产生内部错误  
+		        if (XHR.readyState == 4 && XHR.status == 200) {  
+		            // 这里可以对返回的内容做处理  
+		            // 一般会返回JSON或XML数据格式  
+		            console.log(XHR.responseText);  
+		            // 主动释放,JS本身也会回收的  
+		            XHR = null;  
+		        }  
+		    };  
+		    XHR.send();  
+		}  
+
+
+
+
+		$('#send').click(function(){
+	    //请求的5个阶段，对应readyState的值
+	        //0: 未初始化，send方法未调用；
+	        //1: 正在发送请求，send方法已调用；
+	        //2: 请求发送完毕，send方法执行完毕；
+	        //3: 正在解析响应内容；
+	        //4: 响应内容解析完毕；
+
+	    var data = 'name=yang';
+	    var xhr = new XMLHttpRequest();        //创建一个ajax对象
+	    xhr.onreadystatechange = function(event){    //对ajax对象进行监听
+	        if(xhr.readyState == 4){    //4表示解析完毕
+	            if(xhr.status == 200){    //200为正常返回
+	                console.log(xhr)
+	            }
+	        }
+	    };
+	    xhr.open('POST','url',true);    //建立连接，参数一：发送方式，二：请求地址，三：是否异步，true为异步
+	    xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');    //可有可无
+	    xhr.send(data);        //发送
+	});
+
+
+
+
+		$.ajax({
+		    url:'/comm/test1.php',
+		    type:'POST', //GET
+		    async:true,    //或false,是否异步
+		    data:{
+		        name:'yang',age:25
+		    },
+		    timeout:5000,    //超时时间
+		    dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+		    beforeSend:function(xhr){
+		        console.log(xhr)
+		        console.log('发送前')
+		    },
+		    success:function(data,textStatus,jqXHR){
+		        console.log(data)
+		        console.log(textStatus)
+		        console.log(jqXHR)
+		    },
+		    error:function(xhr,textStatus){
+		        console.log('错误')
+		        console.log(xhr)
+		        console.log(textStatus)
+		    },
+		    complete:function(){
+		        console.log('结束')
+		    }
+		})
+	</script>
+</body>
+</html>

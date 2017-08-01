@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+数组去重方法
+http://www.cnblogs.com/leonwang/p/4845576.html
+
+	<script>
+		// 下面再给大家列举一个从js数组重查找出重复元素的方法：
+
+
+		Array.prototype.deleteEle=function(){  
+		    var newArr = this;  
+		    for (var i=newArr.length-1; i>=0; i--)  
+		    {  
+		        var targetNode = newArr[i];  
+		        for (var j=0; j<i; j++)  
+		        {  
+		            if(targetNode == newArr[j]){  
+		                newArr.splice(i,1);  
+		                break;  
+		            }  
+		        }  
+		    }  
+		    return newArr;  
+		}  
+		var arr = ["a","b","c","c","ab","d","ab","d","c"];  
+		document.write(arr.deleteEle());  
+
+
+		// indexOf  字母首次出现的位置
+		// concat() 方法用于连接两个或多个数组。
+// 该方法不会改变现有的数组，而仅仅会返回被连接数组的一个副本。
+// 下面再给大家列举一个从js数组重查找出重复元素的方法：
+
+		var a = [5,4,3,2,1,2,3,2,1,];
+		Array.prototype.duplicate=function() {
+		    var tmp = [];
+		    this.concat().sort().sort(function(a,b){
+		        if(a==b && tmp.indexOf(a) === -1) tmp.push(a);
+		    });
+		    return tmp;
+		}
+
+		console.log(a.duplicate())
+
+
+// 对于 JavaScript 数组去除重复项，现在有多种方法，其中一种是hash，
+
+		if (!Array.prototype.unique) {
+		 Array.prototype.unique = function () {
+		 var hash = {}, result = [], type = '', item;
+		 for (var i = 0; i < this.length; i++) {
+		 item = this[i];
+		 type = Object.prototype.toString.call(item);
+		 
+		 if ( !hash[item + type] ) {
+		 hash[item + type] = true;
+		 result.push(item);
+		 }
+		 }
+		 return result;
+		 };
+		}
+
+		var arr = [0, 1, '1', true, 5, true, false, undefined, undefined, null, null];
+arr.unique();
+
+
+
+
+// Javascript判断一个数组中是否有重复值的三种方法：
+
+判断重复方法一，转为字符串 进行比较:
+
+var ary = new Array("aaa","cc","dd","aaa");
+
+var s = ary.join(",")+",";
+
+for(var i=0;i<ary.length;i++) {
+
+    if(s.replace(ary[i]+",","").indexOf(ary[i]+",")>-1) {
+
+        alert("数组中有重复元素:" + ary[i]);
+
+        break;
+
+    }
+
+}
+
+判断重复方法二，数组排序，再比较相邻的值:
+
+var ary = new Array("bbb","cc","dd","bbb");
+
+var nary=ary.sort();
+
+for(var i=0;i<ary.length;i++){
+
+    if (nary[i]==nary[i+1]){
+
+        alert("数组重复内容为:"+nary[i]);
+
+    }
+
+}
+
+判断重复方法三，自定义函数方法判断重复:
+
+function isRepeat(arr){
+
+    var hash = {};
+
+    for(var i in arr) {
+
+        if(hash[arr[i]])
+
+            return true;
+
+        hash[arr[i]] = true;
+
+     }
+
+    return false;
+
+}
+
+
+
+
+
+var array=['true',true,false,'1',1,'','sss'," ",1,34,,,{x:1},{x:2}]
+
+Array.prototype.unique=function(){
+
+ //利用对象的hash存储特性去重
+  var object={},result=[];    
+    
+  for(var i=0,length=this.length;i<length;i++){
+    
+    var temp=this[i],key;    
+       
+    if((typeof temp)=='object'){        
+          key=JSON.stringify(temp); //若为对象类型，将对象序列化为字符串
+    }else{
+          key=typeof temp+temp;    
+    }
+    
+    if(!object[key]){    
+      object[key]=true;  //若object中已经存在此键值，则证明此元素在数组中已经存在
+      result.push(temp);
+    
+    }    
+    
+  }
+  
+  return result; 
+
+}
+
+console.log(array.unique()); 
+//["true", true, false, "1", 1, "", "sss", " ", 34, undefined, Object { x=1}, Object { x=2}]
+
+
+	</script>
+
+
+	js数组去重，老生长谈，今天对其进行一番归纳，总结出来4种方法
+
+贴入代码前 ，先对浏览器Array对象进行支持indexOf和forEach的polyfill
+
+
+Array.prototype.indexOf = Array.prototype.indexOf || function(item) {
+    for (var i = 0, j = this.length; i < j; i++) {
+        if (this[i] === item) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+Array.prototype.forEach = Array.prototype.forEach || function(callback, thisArg) {
+    if (!callback || typeof callback !== 'function') return;
+
+    for (var i = 0, j = this.length; i < j; i++) {
+        callback.call(thisArg, this[i], i, this);
+    }
+}
+
+方法一：遍历数组，建立新数组，利用indexOf判断是否存在于新数组中，不存在则push到新数组，最后返回新数组
+
+
+ function removeDuplicatedItem(ar) {
+     var ret = [];
+ 
+     for (var i = 0, j = ar.length; i < j; i++) {
+         if (ret.indexOf(ar[i]) === -1) {
+             ret.push(ar[i]);
+         }
+     }
+ 
+     return ret;
+ }
+
+方法二：遍历数组，利用object对象保存数组值，判断数组值是否已经保存在object中，未保存则push到新数组并用object[arrayItem]=1的方式记录保存
+
+
+
+function removeDuplicatedItem2(ar) {
+    var tmp = {},
+        ret = [];
+
+    for (var i = 0, j = ar.length; i < j; i++) {
+        if (!tmp[ar[i]]) {
+            tmp[ar[i]] = 1;
+            ret.push(ar[i]);
+        }
+    }
+
+    return ret;
+}
+
+方法三：数组下标判断法, 遍历数组，利用indexOf判断元素的值是否与当前索引相等，如相等则加入
+
+
+
+function removeDuplicatedItem3(ar) {
+    var ret = [];
+
+    ar.forEach(function(e, i, ar) {
+        if (ar.indexOf(e) === i) {
+            ret.push(e);
+        }
+    });
+
+    return ret;
+}
+
+方法四：数组先排序， 然后比较俩数组一头一尾进行去重
+
+
+function removeDuplicatedItem4(ar) {
+    var ret = [],
+        end;
+    ar.sort();
+    end = ar[0];
+    ret.push(ar[0]);
+
+    for (var i = 1; i < ar.length; i++) {
+        if (ar[i] != end) {
+            ret.push(ar[i]);
+            end = ar[i];
+        }
+    }
+
+    return ret;
+}
+
+ 有其他好的方式 ，欢迎补充。
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>spa</title>
+	<style type="text/css">
+		* {
+			padding: 0px;
+			margin: 0px;
+		}
+
+		html,body {
+			height: 100%;
+			width: 100%;
+		}
+
+		.pageview {
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+</head>
+<body>
+	<h1>https://segmentfault.com/a/1190000002920768</h1>
+	<h1>http://www.cnblogs.com/libin-1/p/6002268.html</h1>
+	<p>spa 的主要原理 window.location.hash</p>
+
+
+	<ul>
+		<li>其实，SPA的原理就是，一开始将一些必要的页面都加载进来，当你在页面输入别的路由的时候，其实还是待在当前的页面，只不过是他识别出你想要去的地址，然后将那个页面的内容获取到，替代掉当前页面的内容，并且相应的改变url地址，这样给人看起来就好像到了另一个页面，实际上你还是在这个页面里，没有离开过.</li>
+		<li>比如，例如当前你在localhost:8080/index.html这个页面时，你想跳转到#list-view页面(使用hashChange)，或者你点击某个跳转按钮要跳转到那个页面的时候，他先获取你那个#list-view页面的内容，然后将当前页面的内容清除掉，然后再把list-view的内容呈现出来，并没有跳转到别的页面，你从头到尾都是在这个页面里，不过url地址会变化，因此看起来就像你到了另一个页面，这样给人的用户体验特别好，因为不需要等待页面加载过程.</li>
+	</ul>
+
+	<!-- 实例 -->
+	<div class="pageview" style="background: #3b76c0" id="main-view">
+      <h3>首页</h3>
+      <div title="-list-view" class="right-arrow"></div>
+    </div>
+    <div class="pageview" style="background: #58c03b;display: none" id="list-view">
+      <h3>列表页面</h3>
+      <div class="left-arrow"></div>
+      <div title="-detail-view" class="right-arrow"></div>
+    </div>
+    <div class="pageview" style="background: #c03b25;display: none" id="detail-view">
+      <h3>列表详情页面</h3>
+      <div class="left-arrow"></div>
+    </div>
+
+	
+	<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script>
+var states ;
+var currentState;
+$(document).ready(function() {
+  states = registState();
+  currentState = init();
+  //监听hash路由变化
+  window.addEventListener("hashchange", function() {
+    var nextState;
+    console.log(window.location.hash);
+    //判断地址是否为空，若为空，则默认到main-view页面
+    if (window.location.hash == "") {
+      nextState = "main-view";
+    }
+    else {
+      //若不为空，则获取hash路由信息，得到下一个状态
+      nextState = window.location.hash.substring(1);
+    }
+    //判断当前状态是否注册过(是有存在这个状态)0g
+    var validState = checkState(states, nextState);
+    //若不存在，则返回当前状态
+    if (!validState) {
+      console.log("you enter the false validState");
+      window.location.hash = "#" + currentState;
+      return;
+    }
+    $('#'+ currentState).css("display", "none");
+    $('#'+ nextState).css("display", "block");
+    currentState = nextState;
+  })
+
+})
+//状态注册
+function registState() {
+  var states = [];
+  //状态注册
+  $(".pageview").map(function() {
+    return states.push($(this)[0].id);
+  })
+  return states;
+}
+//初始化，对用户一开始输入的url进行处理
+function init() {
+  var currentState = window.location.hash.substring(1);
+  if (currentState == "") {
+    currentState = "main-view";
+  }
+  if (currentState != "main-view") {
+    $('#main-view').css("display", "none");
+    $('#'+ currentState).css("display", "block");
+  }
+  return currentState;
+}
+//判断状态是否存在
+function checkState(states, nextState) {
+  var tof = false;
+  states.forEach(function(element) {
+      if (element == nextState) {
+        tof = true;
+      }
+    })
+  return tof;
+}
+	</script>
+</body>
+</html>

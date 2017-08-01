@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<script>
+	// 删除给定字符
+	var str = "abcdaabbssaaa";
+	var reg = new RegExp("a","g");
+	var a = str.replace(reg,"");
+	console.log(a);
+
+var str = "abcdaabbssaaa";
+var a = str.split("a").join("");
+console.log(a);
+
+
+	// 一个数组，写出三行代码，使得数组内给定值放到最前面
+	// 答数组变字符串，给定值2分割，然后组合。
+
+var arr = [1,2,3];
+var str = arr.join("");
+var rearr = str.split("2");
+rearr.unshift("2");
+
+
+		// 1位置值 放到前面  给定位置的值，放到前面
+
+
+
+		// var arr = [1,2,3];
+		// var str = arr.join("");
+		// // var str = "1,2,3";
+		// var s = str.slice(1,2);
+		// var r = s+str.charAt(1);
+  //       var crr = r.split("");
+
+	</script>
+
+	删除数组值方法
+
+	http://www.cnblogs.com/qiantuwuliang/archive/2010/09/01/1814706.html
+
+
+数组随机排序
+	这个方法是我见过对高效的。
+
+ 
+
+    var arr=[];
+    for(var i=0;i<100;i++){
+            arr[i]=i;
+        }
+    arr.sort(function(){ return 0.5 - Math.random() })
+    var str=arr.join();
+    alert(str);
+
+ 
+
+ 
+
+代码解释:
+
+ 
+
+var arr=[];//新建一个数组 这是大家推荐的方式。
+//而不推荐使用 var arr=new Array();
+ 
+
+这句不用解释了。
+
+for(var i=0;i<100;i++){
+            arr[i]=i;
+        }
+//循环给数组赋值
+ 
+
+ 
+
+ 
+
+关键第地方来了
+
+ 
+
+
+
+    arr.sort(function(){ return 0.5 - Math.random() })
+//sort 是对数组进行排序
+//他的是这样工作的。每次从数组里面挑选两个数 进行运算。
+//如果传入的参数是0 两个数位置不变。
+//如果参数小于0 就交换位置
+//如果参数大于0就不交换位置
+//接下来用刚才的较大数字跟下一个进行比较。这样循环进行排序。
+
+/*恰好。我们利用了这一点使用了0.5 - Math.random  这个运算的结果要么是大于0,要么是小于0.这样要么交换位置，要么不交换位置。当然大于或者小于0是随即出现的。所以数组就被随即排序了。*/
+
+ 
+
+后面两句输出给你看的。呵呵。
+
+
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+   <meta name="apple-mobile-web-app-capable" content="yes" /> 
+   <meta http-equiv="Cache-Control" content="no-siteapp" />
+   <meta name="apple-mobile-web-app-title" content="滑动例子" />
+   <title>滑动例子</title>
+   <link href="assets/css/bootstrap/css/bootstrap.css" rel="stylesheet">
+   <link href="assets/css/fullpage/jquery.fullPage.css" rel="stylesheet">
+   <link href="assets/css/app.css" rel="stylesheet">
+
+</head>
+<body>
+   <div id="fullpage">
+      <!-- page1 -->
+      <div class="section">
+         <img class="img-responsive" src="assets/img/index.png" alt="">
+      </div>
+
+      
+
+      <!-- page2 -->
+      <div class="section income">  
+         <h1 class="page-title">
+            各季度总营收（RMB亿元）
+         </h1>
+         <!--  -->
+         <div class="container" id="income"></div>
+         <div class = "bottom-content">
+            2014年Q1同比增长56%，Q2同比增长84%，Q3同比增长85.6%
+        </div>
+         <!--  -->
+      </div>
+      <!-- page3 -->
+      <div class="section point">
+         <h1 class="page-title">
+            SKU
+         </h1>
+         <div class="wrapper-point container">
+            <div class="point-chart">
+               <img class = "chart-background img-responsive" src="tn/chart.png" alt="">
+               <img class = "chart-line img-responsive" src="tn/line.png" alt="">
+               <!-- <div class="chart-cover"></div> -->
+               <div class="chart-value" id = 'firstValue' style="-webkit-transition: 0.6s; transition: 0.6s;">8</div>
+               <div class="chart-value" id = 'secondValue' style="-webkit-transition: 0.8s; transition: 0.8s;">20</div>
+               <div class="chart-value" id = 'thirdValue' style="-webkit-transition: 1s; transition: 1s;">32</div>
+               <div class="chart-value" id = 'fourthValue' style="-webkit-transition: 1.2s; transition: 1.2s;">45</div>
+            </div>
+            <div class="point-content bottom-content">
+               截至2014年Q3, 跟团游SKU数25万，自助游SKU数20万
+            </div>
+         </div>
+      </div>
+      <!-- page4 -->
+      <div class="section">
+         <h1 class="page-title">全国区域服务中心分布图</h1>
+         <!--  -->
+         <div class="china-map container">
+            <img src="assets/img/map.png" alt="" class="img-responsive">
+           <div class="red-branch" id="redb1"></div>
+           <div class="red-branch" id="redb2"></div>
+           <div class="red-branch" id="redb3"></div>
+           <div class="red-branch" id="redb4"></div>
+           <div class="red-branch" id="redb5"></div>
+           <div class="red-branch" id="redb6"></div>
+           <div class="red-branch" id="redb7"></div>
+           <div class="red-branch" id="redb8"></div>
+           <div class="red-branch" id="redb9"></div>
+           <div class="red-branch" id="redb10"></div>
+           <div class="red-branch" id="redb11"></div>
+           <div class="red-branch" id="redb12"></div>
+           <div class="red-branch" id="redb13"></div>
+           <div class="red-branch" id="redb14"></div>
+           <div class="red-branch" id="redb15"></div>
+           <div class="red-branch" id="redb16"></div>
+           <div class="red-branch" id="redb17"></div>
+           <div class="red-branch" id="redb18"></div>
+           <div class="red-branch" id="redb19"></div>
+           <div class="red-branch" id="redb20"></div>
+          
+       </div>
+       <div class="map-desc">
+           
+          <div class="distct-desc dot-blank">
+              2014年8月底新开<span class="special">10家</span>，10月底新开<span class="special">10家</span>，11月11日再开<span class="special">10家</span>,未完待续······
+          </div>
+       </div>
+         <!--  -->
+      </div>
+      <!-- page5 -->
+      <div class="section circle">
+        <h1 class="page-title">无线流量占比</h1>
+        <!--  -->
+        <div id="canvas">
+          <ul class="list-unstyled list-inline clearfix">
+            <li class="col-xs-3">2014年Q1</li>
+            <li class="circle col-xs-6" id="circles-1"></li>
+            <li class="col-xs-3">2014年Q1无线流量占总流量41.26%</li>
+          </ul>
+          <ul class="list-unstyled list-inline clearfix">
+            <li class="col-xs-3">2014年Q2</li>
+            <li class="circle col-xs-6" id="circles-2"></li>
+            <li class="col-xs-3">2014年Q2无线流量占总流量51.1%</li>
+          </ul>
+          <ul class="list-unstyled list-inline clearfix">
+            <li class="col-xs-3">2014年Q3</li>
+            <li class="circle col-xs-6" id="circles-3"></li>
+            <li class="col-xs-3">2014年Q4无线流量占总流量60.94%</li>
+          </ul>
+        </div>
+        <!--  -->
+        <div class="circle-content bottom-content">
+          2014年Q3无线端订单占总订单比例35%
+        </div>
+      </div>
+      <!-- page6 -->
+      <div class="section">
+        <h1 class="page-title">出游人数</h1>
+        <!--  -->
+        <ul class="person-list" id="personList">
+            <li>
+                <div class="person-count">
+                    <p id="personCount1">0</p>
+                    <p class="person-season">2014年Q1</p>
+                </div>
+            </li>
+            <li>
+                <div class="person-count">
+                    <p id="personCount2" style="color: #00AC82;">0</p>
+                    <p class="person-season">2014年Q2</p>
+                </div>
+            </li>
+            <li>
+                <div class="person-count">
+                    <p id="personCount3" style="color: #007EBF;">0</p>
+                    <p class="person-season">2014年Q3</p>
+                </div>
+            </li>
+        </ul>
+        <div class="report-desc" id="distDesc1">
+            三季度，跟团游(不包括跟团周边游)总出游人次同比增长<span class="special">89.5%</span>，自助游总出游人次同比增长<span class="special">81%</span>。
+        </div>
+        <!--  -->
+      </div>
+      <!-- page7 -->
+      <div class="section container">
+         <div class="special-icon1">
+            <img src="assets/img/laoyuicon.jpg" alt="" class="img-responsive">
+         </div>
+         <div class="laoyu">
+            <img src="assets/img/laoyu.png" alt="" class="img-responsive">
+         </div>
+
+         <div class="report-desc" id="distDesc2">
+            <span class="special"> “老于推荐”</span>是途牛网CEO于敦德为客户推荐最精品的旅游线路，专业团队拍摄第一手视频、图片资料，让好旅游产品以全新形式，多角度、全方位呈现给客户。
+         </div>
+      </div>
+      <!-- page8 -->
+      <div class="section">
+         <div class="special-icon2">
+             <img src="assets/img/yiicon.png" alt="" class="img-responsive">
+         </div>
+         <div class="yikuai">
+            <img src="assets/img/yikuai.jpg" alt="" class="img-responsive">
+         </div>
+         <div class="report-desc" id="distDesc3">
+            <span class="special">1块去旅游</span>是途牛特卖推出的手机APP抢购活动。周一至周五登录途牛APP，即可抢购1元旅游产品，产品包括出境、国内、周边、自驾、邮轮。
+         </div>
+      </div>
+      <!-- page9 -->
+      <div class="section">
+         <div class="right-coner">
+            从这里分享<div class="right-corner"></div>
+         </div>
+         <div class="tail-center">
+            <h1 class="big-title">途牛第三季度</h1>
+            <div class="small-letter">总营收达<span class="special">13.18亿元</span></div>
+            <div class="big-letter">同比大涨<span class="special">85.6%</span></div>
+            <a href="#" class="link-button" id="linkBtn">点击查看完整报告</a>
+         </div>
+      </div> 
+   </div>
+
+<!-- 向上图标 -->
+<div class="arrow-up">
+    <img src="assets/img/arrow-up.png">
+</div>
+<script src="assets/js/plugins/jquery-1.9.1.min.js"></script>
+<script src="assets/js/plugins/jquery-ui-1.10.3.min.js"></script><!--  fullpage依赖 -->
+<script src="assets/js/plugins/jquery.fullPage.min.js"></script>
+<script src="assets/js/plugins/highcharts.js"></script>
+<script src="assets/js/plugins/circles.js"></script>
+<script src="assets/js/app.js"></script>
+
+</body>
+</html>
